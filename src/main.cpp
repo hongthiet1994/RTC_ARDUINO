@@ -5,77 +5,137 @@
 #include <LiquidCrystal_I2C.h>
 
 #define LED_DEBUG 13
-LiquidCrystal_I2C lcd(0x3F,16,2);
+LiquidCrystal_I2C lcd(0x27,16,2);
 
-const char *monthName[12] = {
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-};
-
+char daysOfTheWeek[7][12] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 tmElements_t tm;
 
 
-bool getTime(const char *str)
+void display_time_lcd(tmElements_t tm)
 {
-  int Hour, Min, Sec;
 
-  if (sscanf(str, "%d:%d:%d", &Hour, &Min, &Sec) != 3) return false;
-  tm.Hour = Hour;
-  tm.Minute = Min;
-  tm.Second = Sec;
-  return true;
-}
-
-bool getDate(const char *str)
-{
-  char Month[12];
-  int Day, Year;
-  uint8_t monthIndex;
-
-  if (sscanf(str, "%s %d %d", Month, &Day, &Year) != 3) return false;
-  for (monthIndex = 0; monthIndex < 12; monthIndex++) {
-    if (strcmp(Month, monthName[monthIndex]) == 0) break;
-  }
-  if (monthIndex >= 12) return false;
-  tm.Day = Day;
-  tm.Month = monthIndex + 1;
-  tm.Year = CalendarYrToTm(Year);
-  return true;
-}
-
-
-void setup() {
-  bool parse=false;
-  bool config=false;
-
-  // get the date and time the compiler was run
-  if (getDate(__DATE__) && getTime(__TIME__)) {
-    parse = true;
-    // and configure the RTC with this info
-    if (RTC.write(tm)) {
-      config = true;
+  lcd.setCursor(4, 1);
+    if(tm.Hour<=9)
+    {
+      lcd.print("0");
+      lcd.print(tm.Hour);
     }
-  }
+    else 
+    {
+     lcd.print(tm.Hour); 
+    }
+    lcd.print(':');
+    if(tm.Minute<=9)
+    {
+      lcd.print("0");
+      lcd.print(tm.Minute);
+    }
+    else {
+     lcd.print(tm.Minute); 
+    }
+    lcd.print(':');
+    if(tm.Second<=9)
+    {
+      lcd.print("0");
+      lcd.print(tm.Second);
+    }
+    else {
+     lcd.print(tm.Second); 
+    }
+    lcd.print("   ");
 
+    lcd.setCursor(1, 0);
+    lcd.print(daysOfTheWeek[tm.Wday]);
+    lcd.print(",");
+    if(tm.Day<=9)
+    {
+      lcd.print("0");
+      lcd.print(tm.Day);
+    }
+    else {
+     lcd.print(tm.Day); 
+    }
+    lcd.print('/');
+    if(tm.Month<=9)
+    {
+      lcd.print("0");
+      lcd.print(tm.Month);
+    }
+    else {
+     lcd.print(tm.Month); 
+    }
+    lcd.print('/');
+    lcd.print(tmYearToCalendar(tm.Year));
+}
+
+
+void print2digits(int number)
+{
+  if (number >= 0 && number < 10)
+  {
+    Serial.write('0');
+  }
+  Serial.print(number);
+}
+
+void setup()
+{
   Serial.begin(115200);
-  while (!Serial) ; // wait for Arduino Serial Monitor
+  pinMode(LED_DEBUG, OUTPUT);
+  lcd.init(); 
+  lcd.backlight();
+  while (!Serial)
+    ; // wait for serial
   delay(200);
-  if (parse && config) {
-    Serial.print("DS1307 configured Time=");
-    Serial.print(__TIME__);
-    Serial.print(", Date=");
-    Serial.println(__DATE__);
-  } else if (parse) {
-    Serial.println("DS1307 Communication Error :-{");
-    Serial.println("Please check your circuitry");
-  } else {
-    Serial.print("Could not parse info from the compiler, Time=\"");
-    Serial.print(__TIME__);
-    Serial.print("\", Date=\"");
-    Serial.print(__DATE__);
-    Serial.println("\"");
-  }
+  Serial.println("DS1307RTC Read Test");
+  Serial.println("-------------------");
 }
 
-void loop() {
+void loop()
+{ 
+  
+  
+  if (RTC.read(tm))
+  {
+    Serial.print("Ok, Time = ");
+    print2digits(tm.Hour);
+    Serial.write(':');
+    print2digits(tm.Minute);
+    Serial.write(':');
+    print2digits(tm.Second);
+    Serial.write(' ');
+    print2digits(tm.Wday);
+    Serial.print(", Date (D/M/Y) = ");
+    Serial.print(tm.Day);
+    Serial.write('/');
+    Serial.print(tm.Month);
+    Serial.write('/');
+    Serial.print(tmYearToCalendar(tm.Year));
+    Serial.println();
+    
+    display_time_lcd(tm);
+
+  }
+  else
+  {
+    if (RTC.chipPresent())
+    {
+      Serial.println("The DS1307 is stopped.  Please run the SetTime");
+      Serial.println("example to initialize the time and begin running.");
+      Serial.println();
+      tm.Day=11;
+      tm.Month = 12;
+      tm.Year = 50;
+      tm.Wday = 5;
+      RTC.write(tm);
+    }
+    else
+    {
+      Serial.println("DS1307 read error!  Please check the circuitry.");
+      Serial.println();
+    }
+    delay(9000);
+  }
+  delay(1000);
 }
+
