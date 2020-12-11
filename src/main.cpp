@@ -1,9 +1,15 @@
 #include <Arduino.h>
+#define LED_DEBUG    13
 
-void setup() {
-  // put your setup code here, to run once:
+void setup() 
+{
+  pinMode(LED_DEBUG,OUTPUT); 
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop() 
+{
+  digitalWrite(LED_DEBUG,HIGH);
+  delay(1000);
+  digitalWrite(LED_DEBUG,LOW);
+  delay(1000); 
 }
