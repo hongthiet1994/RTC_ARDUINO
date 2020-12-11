@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#include <Wire.h>
+#include <TimeLib.h>
+#include <DS1307RTC.h>
 #define LED_DEBUG    13
 
 void setup() 
