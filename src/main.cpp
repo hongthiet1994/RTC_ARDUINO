@@ -5,15 +5,15 @@
 #include <LiquidCrystal_I2C.h>
 
 #define LED_DEBUG 13
+
 LiquidCrystal_I2C lcd(0x27,16,2);
 
 char daysOfTheWeek[7][12] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-tmElements_t tm;
+tmElements_t time_data;
 
 
 void display_time_lcd(tmElements_t tm)
 {
-
   lcd.setCursor(4, 1);
     if(tm.Hour<=9)
     {
@@ -92,28 +92,26 @@ void setup()
 }
 
 void loop()
-{ 
-  
-  
-  if (RTC.read(tm))
+{   
+  if (RTC.read(time_data))
   {
     Serial.print("Ok, Time = ");
-    print2digits(tm.Hour);
+    print2digits(time_data.Hour);
     Serial.write(':');
-    print2digits(tm.Minute);
+    print2digits(time_data.Minute);
     Serial.write(':');
-    print2digits(tm.Second);
+    print2digits(time_data.Second);
     Serial.write(' ');
-    print2digits(tm.Wday);
+    print2digits(time_data.Wday);
     Serial.print(", Date (D/M/Y) = ");
-    Serial.print(tm.Day);
+    Serial.print(time_data.Day);
     Serial.write('/');
-    Serial.print(tm.Month);
+    Serial.print(time_data.Month);
     Serial.write('/');
-    Serial.print(tmYearToCalendar(tm.Year));
+    Serial.print(tmYearToCalendar(time_data.Year));
     Serial.println();
     
-    display_time_lcd(tm);
+    display_time_lcd(time_data);
 
   }
   else
@@ -123,11 +121,11 @@ void loop()
       Serial.println("The DS1307 is stopped.  Please run the SetTime");
       Serial.println("example to initialize the time and begin running.");
       Serial.println();
-      tm.Day=11;
-      tm.Month = 12;
-      tm.Year = 50;
-      tm.Wday = 5;
-      RTC.write(tm);
+      time_data.Day=11;
+      time_data.Month = 12;
+      time_data.Year = 50;
+      time_data.Wday = 5;
+      RTC.write(time_data);
     }
     else
     {
