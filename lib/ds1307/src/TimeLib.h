@@ -38,11 +38,13 @@ typedef enum {
     dowInvalid, dowSunday, dowMonday, dowTuesday, dowWednesday, dowThursday, dowFriday, dowSaturday
 } timeDayOfWeek_t;
 
-typedef enum {
+typedef enum 
+{
     tmSecond, tmMinute, tmHour, tmWday, tmDay,tmMonth, tmYear, tmNbrFields
 } tmByteFields;	   
 
-typedef struct  { 
+typedef struct  
+{ 
   uint8_t Second; 
   uint8_t Minute; 
   uint8_t Hour; 

@@ -84,33 +84,32 @@ void setup()
   pinMode(LED_DEBUG, OUTPUT);
   lcd.init(); 
   lcd.backlight();
-  while (!Serial)
-    ; // wait for serial
   delay(200);
   Serial.println("DS1307RTC Read Test");
-  Serial.println("-------------------");
+  Serial.println("-------------------"); 
 }
-
+void print_time()
+{
+  print2digits(time_data.Hour);
+  Serial.write(':');
+  print2digits(time_data.Minute);
+  Serial.write(':');
+  print2digits(time_data.Second);
+  Serial.write(' ');
+  print2digits(time_data.Wday);
+  Serial.print(", Date (D/M/Y) = ");
+  Serial.print(time_data.Day);
+  Serial.write('/');
+  Serial.print(time_data.Month);
+  Serial.write('/');
+  Serial.print(tmYearToCalendar(time_data.Year));
+  Serial.println(); 
+}
 void loop()
 {   
   if (RTC.read(time_data))
   {
-    Serial.print("Ok, Time = ");
-    print2digits(time_data.Hour);
-    Serial.write(':');
-    print2digits(time_data.Minute);
-    Serial.write(':');
-    print2digits(time_data.Second);
-    Serial.write(' ');
-    print2digits(time_data.Wday);
-    Serial.print(", Date (D/M/Y) = ");
-    Serial.print(time_data.Day);
-    Serial.write('/');
-    Serial.print(time_data.Month);
-    Serial.write('/');
-    Serial.print(tmYearToCalendar(time_data.Year));
-    Serial.println();
-    
+    print_time();  
     display_time_lcd(time_data);
 
   }
@@ -121,10 +120,12 @@ void loop()
       Serial.println("The DS1307 is stopped.  Please run the SetTime");
       Serial.println("example to initialize the time and begin running.");
       Serial.println();
-      time_data.Day=11;
+      time_data.Hour = 20;
+      time_data.Minute = 20;
+      time_data.Day=18;
       time_data.Month = 12;
       time_data.Year = 50;
-      time_data.Wday = 5;
+      time_data.Wday = 6;
       RTC.write(time_data);
     }
     else
@@ -132,7 +133,7 @@ void loop()
       Serial.println("DS1307 read error!  Please check the circuitry.");
       Serial.println();
     }
-    delay(9000);
+    delay(1000);
   }
   delay(1000);
 }
