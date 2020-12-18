@@ -111,7 +111,6 @@ void loop()
   {
     print_time();  
     display_time_lcd(time_data);
-
   }
   else
   {
@@ -119,14 +118,6 @@ void loop()
     {
       Serial.println("The DS1307 is stopped.  Please run the SetTime");
       Serial.println("example to initialize the time and begin running.");
-      Serial.println();
-      time_data.Hour = 20;
-      time_data.Minute = 20;
-      time_data.Day=18;
-      time_data.Month = 12;
-      time_data.Year = 50;
-      time_data.Wday = 6;
-      RTC.write(time_data);
     }
     else
     {
@@ -139,7 +130,5 @@ void loop()
   //LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); 
   //LowPower.powerStandby(SLEEP_8S, ADC_OFF, BOD_OFF); 
   //LowPower.idle(SLEEP_8S, ADC_OFF, TIMER5_OFF,TIMER4_OFF,TIMER3_OFF,TIMER2_OFF,TIMER1_OFF, TIMER0_OFF, SPI_OFF,USART3_OFF,USART2_OFF,USART1_OFF, USART0_OFF, TWI_OFF);
-
-
 }
 
