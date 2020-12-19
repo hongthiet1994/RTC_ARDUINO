@@ -4,35 +4,13 @@
 #include <DS1307RTC.h>
 #include <LiquidCrystal_I2C.h>
 #include "LowPower.h"
-#include <Keypad.h>
-
+#include "module_keypad.h"
+#include "module_realtime.h"
 
 
 #define LED_DEBUG 13
 
 
-const byte rows = 4; //số hàng
-const byte columns = 4; //số cột
- 
-int holdDelay = 700; //Thời gian trễ để xem là nhấn 1 nút nhằm tránh nhiễu
-int n = 3; // 
-int state = 0; //nếu state =0 ko nhấn,state =1 nhấn thời gian nhỏ , state = 2 nhấn giữ lâu
-char key = 0;
- 
-//Định nghĩa các giá trị trả về
-char keys[rows][columns] =
-{
-  {'1', '2', '3', 'A'},
-  {'4', '5', '6', 'B'},
-  {'7', '8', '9', 'C'},
-  {'*', '0', '#', 'D'},
-};
- 
-
-byte columnPins[columns] = {5, 6, 7, 8}; 
-byte rowPins[rows] = {9, 10, 11, 12};//Cách nối chân với Arduino 
-//cài đặt thư viện keypad
-Keypad keypad = Keypad(makeKeymap(keys), rowPins, columnPins, rows, columns);
 
 
 LiquidCrystal_I2C lcd(0x27,16,2);
@@ -136,47 +114,26 @@ void print_time()
 }
 void loop()
 { 
-
-  char temp = keypad.getKey();                                                      
- 
-  if ((int)keypad.getState() ==  PRESSED) {
-    if (temp != 0) {
-      key = temp;
+  get_key();
+  if (RTC.read(time_data))
+  {
+    print_time();  
+    display_time_lcd(time_data);
+  }
+  else
+  {
+    if (RTC.chipPresent())
+    {
+      Serial.println("The DS1307 is stopped.  Please run the SetTime");
+      Serial.println("example to initialize the time and begin running.");
     }
+    else
+    {
+      Serial.println("DS1307 read error!  Please check the circuitry.");
+      Serial.println();
+    }
+    delay(1000);
   }
-  if ((int)keypad.getState() ==  HOLD) {
-    state++;
-    state = constrain(state, 1, n-1);
-    delay(holdDelay);
-  }
- 
-  if ((int)keypad.getState() ==  RELEASED) {
-    key += state;
-    state = 0;
-    //Xuất lên Máy tính để xem kết quả
-    Serial.println(key);
- 
-  }
-  delay(100);  
-  // if (RTC.read(time_data))
-  // {
-  //   print_time();  
-  //   display_time_lcd(time_data);
-  // }
-  // else
-  // {
-  //   if (RTC.chipPresent())
-  //   {
-  //     Serial.println("The DS1307 is stopped.  Please run the SetTime");
-  //     Serial.println("example to initialize the time and begin running.");
-  //   }
-  //   else
-  //   {
-  //     Serial.println("DS1307 read error!  Please check the circuitry.");
-  //     Serial.println();
-  //   }
-  //   delay(1000);
-  // }
   //delay(1000);
   //LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); 
   //LowPower.powerStandby(SLEEP_8S, ADC_OFF, BOD_OFF); 
