@@ -3,6 +3,7 @@
 #include <arduino-timer.h>
 #include "module_timer.h"
 #include "module_display.h"
+#include "module_realtime.h"
 
 
 
@@ -21,6 +22,9 @@ bool function_timer_500ms()
     ui32_counter_timer_500ms++;
     switch (ui32_current_screen)
     {
+        case MAIN_SCREEN:
+            get_time(); 
+            break;
         case SET_WDAY_SCREEN:
             if (ui32_counter_timer_500ms%2==0)
             {

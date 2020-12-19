@@ -29,8 +29,7 @@ void setup()
 
 void loop()
 { 
-  get_key();
-  get_time();  
+  get_key();   
   tick_timer();
   //LowPower.powerDown(SLEEP_8S, ADC_OFF, BOD_OFF); 
   //LowPower.powerStandby(SLEEP_8S, ADC_OFF, BOD_OFF); 

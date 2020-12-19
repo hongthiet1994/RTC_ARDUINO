@@ -8,15 +8,18 @@ extern uint32_t ui32_current_screen;
 tmElements_t time_data;
 
 
+char daysOfTheWeek[8][12] = {"   ","Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"};
+
+
 uint32_t validate_wday(int ui32_wday)
 {
-    if (ui32_wday>6)
+    if (ui32_wday>7)
     {
-        return ui32_wday = 0;
+        return ui32_wday = 1;
     }
-    else if (ui32_wday<0)
+    else if (ui32_wday<1)
     {
-        return ui32_wday = 6;
+        return ui32_wday = 7;
     }
     else
     {
@@ -29,12 +32,13 @@ uint32_t validate_wday(int ui32_wday)
 
 void set_time()
 {
-    time_data.Hour = 23;
-    time_data.Minute = 20;
-    time_data.Day= 19;
+    time_data.Hour = 00;
+    time_data.Minute = 12;
+    time_data.Second = 30;
+    time_data.Day= 20;
     time_data.Month = 12;
     time_data.Year = 50;
-    time_data.Wday = 6;
+    time_data.Wday = 7;
     RTC.write(time_data);
 }
 void print2digits(int number)
@@ -64,28 +68,26 @@ void print_time()
 }
 void get_time()
 {
-    if (ui32_current_screen == MAIN_SCREEN)
-    {       
-        if (RTC.read(time_data))
+   
+    if (RTC.read(time_data))
+    {
+        print_time();    
+        display_time_lcd(time_data);
+    }
+    else
+    {
+        if (RTC.chipPresent())
         {
-            //print_time();    
-            display_time_lcd(time_data);
+            Serial.println("The DS1307 is stopped.  Please run the SetTime");
+            Serial.println("example to initialize the time and begin running.");
         }
         else
         {
-            if (RTC.chipPresent())
-            {
-                Serial.println("The DS1307 is stopped.  Please run the SetTime");
-                Serial.println("example to initialize the time and begin running.");
-            }
-            else
-            {
-                Serial.println("DS1307 read error!  Please check the circuitry.");
-                Serial.println();
-            }
-            delay(1000);
+            Serial.println("DS1307 read error!  Please check the circuitry.");
+            Serial.println();
         }
-    }
+        delay(1000);
+    }   
 }
 
 
