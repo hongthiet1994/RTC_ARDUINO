@@ -1,8 +1,20 @@
+#include <Arduino.h>
 #include <TimeLib.h>
+#include <LiquidCrystal_I2C.h>
 #include "module_display.h"
+
+
+LiquidCrystal_I2C lcd(0x27,16,2);
+
 
 extern char daysOfTheWeek[7][12];
 
+void init_lcd()
+{
+    lcd.init(); 
+    lcd.backlight();
+    delay(200);
+}
 void display_time_lcd(tmElements_t tm)
 {
   lcd.setCursor(4, 1);
