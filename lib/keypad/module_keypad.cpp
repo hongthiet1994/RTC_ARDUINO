@@ -61,14 +61,34 @@ void process_key(uint32_t key)
             if (ui32_current_screen==MAIN_SCREEN)
             {
                 ui32_current_screen=SET_WDAY_SCREEN;
-            }           
+            }
+            else if (ui32_current_screen==SET_WDAY_SCREEN)
+            {
+                ui32_current_screen=SET_HOURS_SCREEN;
+            }
+            else if (ui32_current_screen==SET_HOURS_SCREEN)
+            {
+                ui32_current_screen=SET_MINUTE_SCREEN;
+            }
+            else if (ui32_current_screen==SET_MINUTE_SCREEN)
+            {
+                ui32_current_screen=SET_SECONDS_SCREEN;
+            }
+            else if (ui32_current_screen==SET_SECONDS_SCREEN)
+            {
+                ui32_current_screen=SET_DAY_SCREEN;
+            }
+            else if (ui32_current_screen==SET_MONTH_SCREEN)
+            {
+                ui32_current_screen=SET_YEAR_SCREEN;
+            }                       
             break;   
         case KEY_UP:
-            change_value_up();
+            change_value_wday_up();
             Serial.println("button up");
             break;
         case KEY_DOWN:
-            change_value_down();
+            change_value_wday_down();
             Serial.println("button down");
             break;
         default:
@@ -77,7 +97,7 @@ void process_key(uint32_t key)
 }
 
 
-void change_value_up() 
+void change_value_wday_up() 
 {
     switch (ui32_current_screen)
     {
@@ -89,7 +109,7 @@ void change_value_up()
         break;
     }
 }
-void change_value_down()
+void change_value_wday_down()
 {
     switch (ui32_current_screen)
     {
