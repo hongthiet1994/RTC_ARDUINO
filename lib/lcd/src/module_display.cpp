@@ -86,3 +86,19 @@ void display_test()
     lcd.print("thiet hong ");
 }
 
+void blink_wday(uint32_t ui32_wday,uint32_t ui32_type_display)
+{
+    if (ui32_type_display == NULL)
+    {
+        lcd.setCursor(COLUMN_WDAY,ROW_WDAY);
+        lcd.print("   ");
+    }
+    else
+    {
+        lcd.setCursor(COLUMN_WDAY,ROW_WDAY);
+        lcd.print(daysOfTheWeek[ui32_wday]);
+    }
+    
+    
+    
+}

@@ -4,9 +4,28 @@
 #include "module_realtime.h"
 #include "module_display.h"
 
+extern uint32_t ui32_current_screen;
 tmElements_t time_data;
 
 
+uint32_t validate_wday(int ui32_wday)
+{
+    if (ui32_wday>6)
+    {
+        return ui32_wday = 0;
+    }
+    else if (ui32_wday<0)
+    {
+        return ui32_wday = 6;
+    }
+    else
+    {
+        return ui32_wday;
+    }
+    
+    
+   
+}
 
 void set_time()
 {
@@ -45,23 +64,28 @@ void print_time()
 }
 void get_time()
 {
-    if (RTC.read(time_data))
-    {
-        //print_time();    
-        display_time_lcd(time_data);
-    }
-    else
-    {
-        if (RTC.chipPresent())
+    if (ui32_current_screen == MAIN_SCREEN)
+    {       
+        if (RTC.read(time_data))
         {
-            Serial.println("The DS1307 is stopped.  Please run the SetTime");
-            Serial.println("example to initialize the time and begin running.");
+            //print_time();    
+            display_time_lcd(time_data);
         }
         else
         {
-            Serial.println("DS1307 read error!  Please check the circuitry.");
-            Serial.println();
+            if (RTC.chipPresent())
+            {
+                Serial.println("The DS1307 is stopped.  Please run the SetTime");
+                Serial.println("example to initialize the time and begin running.");
+            }
+            else
+            {
+                Serial.println("DS1307 read error!  Please check the circuitry.");
+                Serial.println();
+            }
+            delay(1000);
         }
-        delay(1000);
     }
 }
+
+

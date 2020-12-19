@@ -2,10 +2,12 @@
 #include <LiquidCrystal_I2C.h>
 #include "module_keypad.h"
 #include "module_display.h"
+#include "module_realtime.h"
 
 
 extern LiquidCrystal_I2C lcd;
 extern uint32_t ui32_current_screen;
+extern tmElements_t time_data;
 int n = 3;     //
 int state = 0; //nếu state =0 ko nhấn,state =1 nhấn thời gian nhỏ , state = 2 nhấn giữ lâu
 char key = 0;
@@ -56,9 +58,47 @@ void process_key(uint32_t key)
     switch (key)
     {
         case KEY_SETING:
-            ui32_current_screen=SET_WDAY_SCREEN;
-            break;        
+            if (ui32_current_screen==MAIN_SCREEN)
+            {
+                ui32_current_screen=SET_WDAY_SCREEN;
+            }           
+            break;   
+        case KEY_UP:
+            change_value_up();
+            Serial.println("button up");
+            break;
+        case KEY_DOWN:
+            change_value_down();
+            Serial.println("button down");
+            break;
         default:
             break;
     }
+}
+
+
+void change_value_up() 
+{
+    switch (ui32_current_screen)
+    {
+    case SET_WDAY_SCREEN:
+        time_data.Wday = validate_wday(time_data.Wday+1);  
+        Serial.println(time_data.Wday);        
+        break;
+    default:
+        break;
+    }
+}
+void change_value_down()
+{
+    switch (ui32_current_screen)
+    {
+    case SET_WDAY_SCREEN:
+        time_data.Wday = validate_wday(time_data.Wday-1);  
+        Serial.println(time_data.Wday);      
+        break;
+    default:
+        break;
+    }
+
 }
