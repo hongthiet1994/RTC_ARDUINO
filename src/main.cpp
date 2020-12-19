@@ -19,8 +19,8 @@ void setup()
   Serial.begin(115200);
   pinMode(LED_DEBUG, OUTPUT);
   init_lcd();
-  Serial.println("DS1307RTC Read Test");
-  Serial.println("-------------------"); 
+  Serial.println("Init project realtime clock");
+  Serial.println("---------------------------"); 
 }
 
 
