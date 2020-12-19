@@ -1,6 +1,11 @@
 #include "Keypad.h"
+#include <LiquidCrystal_I2C.h>
 #include "module_keypad.h"
+#include "module_display.h"
 
+
+extern LiquidCrystal_I2C lcd;
+extern uint32_t ui32_current_screen;
 int n = 3;     //
 int state = 0; //nếu state =0 ko nhấn,state =1 nhấn thời gian nhỏ , state = 2 nhấn giữ lâu
 char key = 0;
@@ -41,6 +46,19 @@ void get_key()
         state = 0;
         //Xuất lên Máy tính để xem kết quả
         Serial.println(key);
+        process_key(key);
     }
     delay(100);
+}
+
+void process_key(uint32_t key)
+{
+    switch (key)
+    {
+        case KEY_SETING:
+            ui32_current_screen=SET_WDAY_SCREEN;
+            break;        
+        default:
+            break;
+    }
 }

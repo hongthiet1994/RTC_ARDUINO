@@ -11,7 +11,7 @@ void init_timer()
 
 bool function_timer_1_second()
 {
-    Serial.println("in function timer 1 second");
+    
     return true; // repeat? true
 }
 

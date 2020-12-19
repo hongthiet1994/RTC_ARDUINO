@@ -22,7 +22,7 @@ void setup()
   init_timer();
   Serial.println("Init project realtime clock");
   Serial.println("---------------------------"); 
-  set_time();
+  //set_time();
 }
 
 

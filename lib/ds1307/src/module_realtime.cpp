@@ -10,8 +10,8 @@ tmElements_t time_data;
 
 void set_time()
 {
-    time_data.Hour = 22;
-    time_data.Minute = 47;
+    time_data.Hour = 23;
+    time_data.Minute = 20;
     time_data.Day= 19;
     time_data.Month = 12;
     time_data.Year = 50;
@@ -47,7 +47,7 @@ void get_time()
 {
     if (RTC.read(time_data))
     {
-        //print_time();
+        //print_time();    
         display_time_lcd(time_data);
     }
     else
