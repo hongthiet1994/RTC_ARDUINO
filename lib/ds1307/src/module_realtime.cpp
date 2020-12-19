@@ -10,6 +10,13 @@ char daysOfTheWeek[7][12] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
 void set_time()
 {
+    time_data.Hour = 22;
+    time_data.Minute = 32;
+    time_data.Day= 19;
+    time_data.Month = 12;
+    time_data.Year = 50;
+    time_data.Wday = 7;
+    RTC.write(time_data);
 }
 void print2digits(int number)
 {
@@ -40,7 +47,7 @@ void get_time()
 {
     if (RTC.read(time_data))
     {
-        //print_time();
+        print_time();
         display_time_lcd(time_data);
     }
     else
