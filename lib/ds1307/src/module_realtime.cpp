@@ -15,13 +15,14 @@ struct ALARM_DATA
 };
 
 ALARM_DATA data_alarm;
+uint32_t ui32_current_alarm = 0;
 
 extern uint32_t ui32_current_screen;
 tmElements_t time_data;
 
 
 char daysOfTheWeek[8][12] = {"All","Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"};
-
+char label_alarm[MAX_ALARM][5] = {"TIMER0","TIMER1","TIMER2","TIMER3","TIMER4"};
 
 
 
