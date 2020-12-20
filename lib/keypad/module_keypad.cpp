@@ -4,12 +4,12 @@
 #include "module_display.h"
 #include "module_realtime.h"
 
+uint32_t ui32_hold_key_detect = false;
 extern char daysOfTheWeek[8][12];
 extern LiquidCrystal_I2C lcd;
 extern uint32_t ui32_current_screen;
 extern tmElements_t time_data;
-int n = 3;     //
-int state = 0; //nếu state =0 ko nhấn,state =1 nhấn thời gian nhỏ , state = 2 nhấn giữ lâu
+uint32_t ui32_counter_hold_key = 0;
 char key = 0;
 
 //Định nghĩa các giá trị trả về
@@ -32,28 +32,39 @@ void get_key()
     {
         if (temp != 0)
         {
+            ui32_hold_key_detect = false;
             key = temp;
         }
     }
     if ((int)keypad.getState() == HOLD)
     {
-        state++;
-        state = constrain(state, 1, n - 1);
+        ui32_counter_hold_key++;
         delay(HOLD_DELAY);
     }
 
     if ((int)keypad.getState() == RELEASED)
     {
-        key += state;
-        state = 0;
-        //Xuất lên Máy tính để xem kết quả
-        Serial.println(key);
-        process_key(key);
+        if (ui32_counter_hold_key>=MAX_HOLD_KEY)
+        {
+            ui32_counter_hold_key = 0;
+            ui32_hold_key_detect = true;
+            Serial.print("Hold key : ");
+            Serial.println(key);
+        }
+        else
+        {
+            ui32_counter_hold_key = 0;
+            ui32_hold_key_detect = false;
+            Serial.print("Press key : ");
+            Serial.println(key);
+            process_press_key(key);
+        }      
+        
     }
     delay(100);
 }
 
-void process_key(uint32_t key)
+void process_press_key(uint32_t key)
 {
     switch (key)
     {
@@ -125,6 +136,81 @@ void process_key(uint32_t key)
             break;
         default:
             break;
+    }
+}
+
+void process_hold_key(uint32_t key)
+{
+    switch (key)
+    {
+        // case KEY_SETING:
+        //     if (ui32_current_screen==MAIN_SCREEN)
+        //     {
+        //         ui32_current_screen=SET_WDAY_SCREEN;                
+        //     }
+        //     else if (ui32_current_screen==SET_WDAY_SCREEN)
+        //     {
+        //         ui32_current_screen = SET_HOURS_SCREEN;    
+        //         lcd.setCursor(COLUMN_WDAY,ROW_WDAY);
+        //         lcd.print(daysOfTheWeek[time_data.Wday]);            
+        //     }
+        //     else if (ui32_current_screen==SET_HOURS_SCREEN)
+        //     {
+        //         ui32_current_screen = SET_MINUTE_SCREEN;   
+        //         lcd.setCursor(COLUMN_HOUR,ROW_HOUR);
+        //         display_0_before(time_data.Hour); 
+                             
+        //     }
+        //     else if (ui32_current_screen==SET_MINUTE_SCREEN)
+        //     {
+        //         ui32_current_screen = SET_SECONDS_SCREEN;   
+        //         lcd.setCursor(COLUMN_MINUTE,ROW_MINUTE);
+        //         display_0_before(time_data.Minute);             
+        //     } 
+
+        //     else if (ui32_current_screen==SET_SECONDS_SCREEN)
+        //     {
+        //         ui32_current_screen = SET_DAY_SCREEN;   
+        //         lcd.setCursor(COLUMN_SECOND,ROW_SECOND);
+        //         display_0_before(time_data.Second);              
+        //     } 
+
+        //     else if (ui32_current_screen==SET_DAY_SCREEN)
+        //     {
+        //         ui32_current_screen = SET_MONTH_SCREEN; 
+        //         lcd.setCursor(COLUMN_DAY,ROW_DAY);
+        //         display_0_before(time_data.Day);               
+        //     } 
+
+        //     else if (ui32_current_screen==SET_MONTH_SCREEN)
+        //     {
+        //         ui32_current_screen = SET_YEAR_SCREEN; 
+        //         lcd.setCursor(COLUMN_MONTH,ROW_MONTH);
+        //         display_0_before(time_data.Month);               
+        //     }   
+        //     else if (ui32_current_screen==SET_YEAR_SCREEN)
+        //     {
+        //         ui32_current_screen = MAIN_SCREEN; 
+        //         lcd.setCursor(COLUMN_YEAR,ROW_YEAR);
+        //         display_0_before((time_data.Year+1970)-2000);                  
+        //     }         
+            
+                      
+        //     break;   
+        // case KEY_UP:
+        //     change_value_up();
+        //     Serial.println("button up");
+        //     break;
+        // case KEY_DOWN:
+        //     change_value_down();
+        //     Serial.println("button down");
+        //     break;
+        // case KEY_ENTER:
+        //     set_time();   
+        //     ui32_current_screen=MAIN_SCREEN;         
+        //     break;
+        // default:
+        //     break;
     }
 }
 

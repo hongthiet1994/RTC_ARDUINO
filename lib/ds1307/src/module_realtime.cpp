@@ -150,7 +150,7 @@ void get_time()
    
     if (RTC.read(time_data))
     {
-        print_time();    
+        //print_time();    
         display_time_lcd(time_data);
     }
     else
