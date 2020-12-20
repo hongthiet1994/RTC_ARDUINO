@@ -39,10 +39,7 @@ void get_key()
     if ((int)keypad.getState() == HOLD)
     {
         ui32_counter_hold_key++;
-        delay(HOLD_DELAY);
-    }
-    if ((int)keypad.getState() == RELEASED)
-    {
+        //Serial.println("hold key");
         if (ui32_counter_hold_key>=MAX_HOLD_KEY)
         {
             ui32_counter_hold_key = 0;
@@ -51,15 +48,18 @@ void get_key()
             Serial.println(key);
             process_hold_key(key);
         }
-        else
+        delay(HOLD_DELAY);
+    }
+    else
+    {
+        if ((int)keypad.getState() == RELEASED && (ui32_hold_key_detect==false))
         {
             ui32_counter_hold_key = 0;
             ui32_hold_key_detect = false;
             Serial.print("Press key : ");
             Serial.println(key);
-            process_press_key(key);
-        }      
-        
+            process_press_key(key);    
+        }        
     }
     delay(100);
 }
