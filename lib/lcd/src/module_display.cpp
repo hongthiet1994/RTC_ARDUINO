@@ -194,7 +194,12 @@ void blink_value(uint32_t ui32_type_display)
     default:
         break;
     }
-    
-    
-    
+}
+
+void display_set_timer()
+{
+    lcd.clear();
+    lcd.setCursor(1,0);
+    lcd.print("SET TIMER ");
+    //display_0_before((time_data.Year+1970)-2000);  
 }

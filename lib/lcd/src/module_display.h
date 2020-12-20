@@ -36,10 +36,12 @@ enum SCREEN_DISPLAY
     SET_SECONDS_SCREEN,
     SET_DAY_SCREEN,
     SET_MONTH_SCREEN,
-    SET_YEAR_SCREEN
+    SET_YEAR_SCREEN,
+    SET_TIMER_SCREEN
 };
 void init_lcd();
 void display_time_lcd(tmElements_t tm);
 void display_test();
 void blink_value(uint32_t ui32_type_display);
 void display_0_before(uint32_t ui32_value);
+void display_set_timer();
