@@ -14,24 +14,32 @@ uint32_t validate_months(int32_t i32_value)
 {
     if (i32_value > MAX_OF_MONTH)
     {
-        i32_value = 0;
+        return i32_value = 0;
     }
     else if (i32_value < 0)
     {
-        i32_value = MAX_OF_MONTH;
+        return i32_value = MAX_OF_MONTH;
     }
+    else
+    {
+        return i32_value;
+    } 
 }
 
 uint32_t validate_days(int32_t i32_value)
 {
     if (i32_value > MAX_OF_DAY)
     {
-        i32_value = 0;
+        return i32_value = 0;
     }
     else if (i32_value < 0)
     {
-        i32_value = MAX_OF_DAY;
+        return i32_value = MAX_OF_DAY;
     }
+    else
+    {
+        return i32_value;
+    } 
 }
 
 
@@ -39,24 +47,32 @@ uint32_t validate_hours(int32_t i32_value)
 {
     if (i32_value > MAX_OF_HOUR)
     {
-        i32_value = 0;
+        return i32_value = 0;
     }
     else if (i32_value < 0)
     {
-        i32_value = MAX_OF_HOUR;
+        return i32_value = MAX_OF_HOUR;
     }
+    else
+    {
+        return i32_value;
+    } 
 }
 
 uint32_t validate_minutes_seconds(int32_t i32_value)
 {
     if (i32_value > MAX_OF_MINUTE)
     {
-        i32_value = 0;
+        return i32_value = 0;
     }
     else if (i32_value < 0)
     {
-        i32_value = MAX_OF_MINUTE;
+        return i32_value = MAX_OF_MINUTE;
     }   
+    else
+    {
+        return i32_value;
+    } 
 }
 
 uint32_t validate_wday(int ui32_wday)

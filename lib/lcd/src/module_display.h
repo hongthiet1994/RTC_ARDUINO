@@ -27,4 +27,4 @@ enum SCREEN_DISPLAY
 void init_lcd();
 void display_time_lcd(tmElements_t tm);
 void display_test();
-void blink_wday(uint32_t ui32_wday,uint32_t ui32_type_display);
+void blink_value(uint32_t ui32_type_display);

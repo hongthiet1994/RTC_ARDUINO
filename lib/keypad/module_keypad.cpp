@@ -61,7 +61,21 @@ void process_key(uint32_t key)
             if (ui32_current_screen==MAIN_SCREEN)
             {
                 ui32_current_screen=SET_WDAY_SCREEN;
+            }
+            else if (ui32_current_screen==SET_WDAY_SCREEN)
+            {
+                ui32_current_screen = SET_HOURS_SCREEN;                
+            }
+            else if (ui32_current_screen==SET_HOURS_SCREEN)
+            {
+                ui32_current_screen = SET_MINUTE_SCREEN;                
+            }
+            else if (ui32_current_screen==SET_MINUTE_SCREEN)
+            {
+                ui32_current_screen = SET_SECONDS_SCREEN;                
             }           
+            
+                      
             break;   
         case KEY_UP:
             change_value_up();
@@ -86,6 +100,8 @@ void change_value_up()
             Serial.println(time_data.Wday);        
             break;
         case SET_HOURS_SCREEN:
+            time_data.Hour = validate_hours(time_data.Hour+1);
+            Serial.println(time_data.Hour); 
             break;
         default:
             break;
@@ -98,6 +114,9 @@ void change_value_down()
         case SET_WDAY_SCREEN:
             time_data.Wday = validate_wday(time_data.Wday-1);  
             Serial.println(time_data.Wday);      
+            break;
+        case SET_HOURS_SCREEN:
+            time_data.Hour = validate_hours(time_data.Hour-1);
             break;
         default:
             break;

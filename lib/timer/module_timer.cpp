@@ -25,18 +25,15 @@ bool function_timer_500ms()
         case MAIN_SCREEN:
             get_time(); 
             break;
-        case SET_WDAY_SCREEN:
+        default:
             if (ui32_counter_timer_500ms%2==0)
             {
-                blink_wday(time_data.Wday,NULL);
+                blink_value(NULL);
             }
             else
             {
-                blink_wday(time_data.Wday,!NULL);
-            }       
-            break;
-        
-        default:
+                blink_value(!NULL);
+            } 
             break;
     }
     return true; // repeat? true

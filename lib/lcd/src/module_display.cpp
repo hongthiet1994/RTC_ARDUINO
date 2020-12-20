@@ -6,7 +6,7 @@
 uint32_t ui32_current_screen = MAIN_SCREEN;
 LiquidCrystal_I2C lcd(0x27,16,2);
 
-
+extern tmElements_t time_data;
 extern char daysOfTheWeek[8][12];
 
 void init_lcd()
@@ -83,17 +83,56 @@ void display_test()
     lcd.print("thiet hong ");
 }
 
-void blink_wday(uint32_t ui32_wday,uint32_t ui32_type_display)
+void display_0_before(uint32_t ui32_value)
 {
-    if (ui32_type_display == NULL)
+    if (ui32_value<10)
     {
-        lcd.setCursor(COLUMN_WDAY,ROW_WDAY);
-        lcd.print("   ");
+        lcd.print('0');
+        lcd.print(ui32_value);
     }
     else
     {
-        lcd.setCursor(COLUMN_WDAY,ROW_WDAY);
-        lcd.print(daysOfTheWeek[ui32_wday]);
+        
+        lcd.print(ui32_value);
+    }
+    
+    
+
+}
+void blink_value(uint32_t ui32_type_display)
+{
+    
+    switch (ui32_current_screen)
+    {
+        case SET_WDAY_SCREEN:
+            if (ui32_type_display == NULL)
+            {
+                lcd.setCursor(COLUMN_WDAY,ROW_WDAY);
+                lcd.print("   ");
+            }
+            else
+            {
+                lcd.setCursor(COLUMN_WDAY,ROW_WDAY);
+                lcd.print(daysOfTheWeek[time_data.Wday]);
+            }
+        break;
+
+        case SET_HOURS_SCREEN:
+            if (ui32_type_display == NULL)
+            {
+                lcd.setCursor(COLUMN_HOUR,ROW_HOUR);
+                lcd.print("  ");
+            }
+            else
+            {
+                lcd.setCursor(COLUMN_HOUR,ROW_HOUR);
+                display_0_before(time_data.Hour);
+                //lcd.print(time_data.Hour);
+            }
+        break;
+    
+    default:
+        break;
     }
     
     
