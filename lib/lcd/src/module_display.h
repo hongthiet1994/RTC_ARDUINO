@@ -1,7 +1,17 @@
 #include <TimeLib.h>
 
-#define ROW_WDAY        0
-#define COLUMN_WDAY     1
+#define ROW_WDAY            0
+#define COLUMN_WDAY         1
+
+#define ROW_HOUR            1
+#define COLUMN_HOUR         4
+
+#define ROW_MINUTE          1
+#define COLUMN_MINUTE       7
+
+
+#define ROW_SECOND          1
+#define COLUMN_SECOND       10
 
 enum SCREEN_DISPLAY
 {
