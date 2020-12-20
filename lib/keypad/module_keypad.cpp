@@ -40,7 +40,7 @@ void get_key()
     {
         ui32_counter_hold_key++;
         //Serial.println("hold key");
-        if (ui32_counter_hold_key>=MAX_HOLD_KEY)
+        if ((ui32_counter_hold_key>=MAX_HOLD_KEY) && (ui32_hold_key_detect == false))
         {
             ui32_counter_hold_key = 0;
             ui32_hold_key_detect = true;
