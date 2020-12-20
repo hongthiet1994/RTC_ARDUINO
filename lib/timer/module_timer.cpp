@@ -14,7 +14,7 @@ uint32_t ui32_counter_timer_500ms = 0;
 
 void init_timer()
 {    // call the toggle_led function every 1000 millis (1 second)
-  timer.every(500, function_timer_500ms);
+  timer.every(250, function_timer_500ms);
 }
 
 bool function_timer_500ms()

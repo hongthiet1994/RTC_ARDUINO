@@ -4,7 +4,7 @@
 #include "module_display.h"
 #include "module_realtime.h"
 
-
+extern char daysOfTheWeek[8][12];
 extern LiquidCrystal_I2C lcd;
 extern uint32_t ui32_current_screen;
 extern tmElements_t time_data;
@@ -60,20 +60,54 @@ void process_key(uint32_t key)
         case KEY_SETING:
             if (ui32_current_screen==MAIN_SCREEN)
             {
-                ui32_current_screen=SET_WDAY_SCREEN;
+                ui32_current_screen=SET_WDAY_SCREEN;                
             }
             else if (ui32_current_screen==SET_WDAY_SCREEN)
             {
-                ui32_current_screen = SET_HOURS_SCREEN;                
+                ui32_current_screen = SET_HOURS_SCREEN;    
+                lcd.setCursor(COLUMN_WDAY,ROW_WDAY);
+                lcd.print(daysOfTheWeek[time_data.Wday]);            
             }
             else if (ui32_current_screen==SET_HOURS_SCREEN)
             {
-                ui32_current_screen = SET_MINUTE_SCREEN;                
+                ui32_current_screen = SET_MINUTE_SCREEN;   
+                lcd.setCursor(COLUMN_HOUR,ROW_HOUR);
+                display_0_before(time_data.Hour); 
+                             
             }
             else if (ui32_current_screen==SET_MINUTE_SCREEN)
             {
-                ui32_current_screen = SET_SECONDS_SCREEN;                
-            }           
+                ui32_current_screen = SET_SECONDS_SCREEN;   
+                lcd.setCursor(COLUMN_MINUTE,ROW_MINUTE);
+                display_0_before(time_data.Minute);             
+            } 
+
+            else if (ui32_current_screen==SET_SECONDS_SCREEN)
+            {
+                ui32_current_screen = SET_DAY_SCREEN;   
+                lcd.setCursor(COLUMN_SECOND,ROW_SECOND);
+                display_0_before(time_data.Second);              
+            } 
+
+            else if (ui32_current_screen==SET_DAY_SCREEN)
+            {
+                ui32_current_screen = SET_MONTH_SCREEN; 
+                lcd.setCursor(COLUMN_DAY,ROW_DAY);
+                display_0_before(time_data.Day);               
+            } 
+
+            else if (ui32_current_screen==SET_MONTH_SCREEN)
+            {
+                ui32_current_screen = SET_YEAR_SCREEN; 
+                lcd.setCursor(COLUMN_MONTH,ROW_MONTH);
+                display_0_before(time_data.Month);               
+            }   
+            else if (ui32_current_screen==SET_YEAR_SCREEN)
+            {
+                ui32_current_screen = MAIN_SCREEN; 
+                lcd.setCursor(COLUMN_YEAR,ROW_YEAR);
+                display_0_before((time_data.Year+1970)-2000);                  
+            }         
             
                       
             break;   
@@ -84,6 +118,10 @@ void process_key(uint32_t key)
         case KEY_DOWN:
             change_value_down();
             Serial.println("button down");
+            break;
+        case KEY_ENTER:
+            set_time();   
+            ui32_current_screen=MAIN_SCREEN;         
             break;
         default:
             break;
@@ -103,6 +141,25 @@ void change_value_up()
             time_data.Hour = validate_hours(time_data.Hour+1);
             Serial.println(time_data.Hour); 
             break;
+        case SET_MINUTE_SCREEN:
+            time_data.Minute = validate_minutes_seconds(time_data.Minute+1);
+            Serial.println(time_data.Minute); 
+            break;
+        case SET_SECONDS_SCREEN:
+            time_data.Second = validate_minutes_seconds(time_data.Second+1);
+            Serial.println(time_data.Second); 
+            break;
+        case SET_DAY_SCREEN:
+            time_data.Day = validate_days(time_data.Day+1);
+            Serial.println(time_data.Day); 
+            break;
+        case SET_MONTH_SCREEN:
+            time_data.Month = validate_months(time_data.Month+1);
+            Serial.println(time_data.Month);
+        case SET_YEAR_SCREEN:
+            time_data.Year = validate_years(time_data.Year+1);
+            Serial.println(time_data.Year); 
+            break;
         default:
             break;
     }
@@ -117,6 +174,25 @@ void change_value_down()
             break;
         case SET_HOURS_SCREEN:
             time_data.Hour = validate_hours(time_data.Hour-1);
+            break;
+        case SET_MINUTE_SCREEN:
+            time_data.Minute = validate_minutes_seconds(time_data.Minute-1);
+            Serial.println(time_data.Minute); 
+            break;
+        case SET_SECONDS_SCREEN:
+            time_data.Second = validate_minutes_seconds(time_data.Second-1);
+            Serial.println(time_data.Second); 
+            break;
+        case SET_DAY_SCREEN:
+            time_data.Day = validate_days(time_data.Day-1);
+            Serial.println(time_data.Day); 
+            break;
+        case SET_MONTH_SCREEN:
+            time_data.Month = validate_months(time_data.Month-1);
+            Serial.println(time_data.Month);
+        case SET_YEAR_SCREEN:
+            time_data.Year = validate_years(time_data.Year-1);
+            Serial.println(time_data.Year); 
             break;
         default:
             break;

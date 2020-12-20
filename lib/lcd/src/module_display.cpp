@@ -91,8 +91,7 @@ void display_0_before(uint32_t ui32_value)
         lcd.print(ui32_value);
     }
     else
-    {
-        
+    {        
         lcd.print(ui32_value);
     }
     
@@ -126,11 +125,72 @@ void blink_value(uint32_t ui32_type_display)
             else
             {
                 lcd.setCursor(COLUMN_HOUR,ROW_HOUR);
-                display_0_before(time_data.Hour);
-                //lcd.print(time_data.Hour);
+                display_0_before(time_data.Hour);               
             }
         break;
-    
+
+        case SET_MINUTE_SCREEN:
+            if (ui32_type_display == NULL)
+            {
+                lcd.setCursor(COLUMN_MINUTE,ROW_MINUTE);
+                lcd.print("  ");
+            }
+            else
+            {
+                lcd.setCursor(COLUMN_MINUTE,ROW_MINUTE);
+                display_0_before(time_data.Minute);                
+            }
+        break;
+        case SET_SECONDS_SCREEN:
+            if (ui32_type_display == NULL)
+            {
+                lcd.setCursor(COLUMN_SECOND,ROW_SECOND);
+                lcd.print("  ");
+            }
+            else
+            {
+                lcd.setCursor(COLUMN_SECOND,ROW_SECOND);
+                display_0_before(time_data.Second);                
+            }
+        break;
+
+        case SET_DAY_SCREEN:
+            if (ui32_type_display == NULL)
+            {
+                lcd.setCursor(COLUMN_DAY,ROW_DAY);
+                lcd.print("  ");
+            }
+            else
+            {
+                lcd.setCursor(COLUMN_DAY,ROW_DAY);
+                display_0_before(time_data.Day);                
+            }
+        break;
+
+        case SET_MONTH_SCREEN:
+            if (ui32_type_display == NULL)
+            {
+                lcd.setCursor(COLUMN_MONTH,ROW_MONTH);
+                lcd.print("  ");
+            }
+            else
+            {
+                lcd.setCursor(COLUMN_MONTH,ROW_MONTH);
+                display_0_before(time_data.Month);                
+            }
+        break;
+        case SET_YEAR_SCREEN:
+            if (ui32_type_display == NULL)
+            {
+                lcd.setCursor(COLUMN_YEAR,ROW_YEAR);
+                lcd.print("  ");
+            }
+            else
+            {
+                lcd.setCursor(COLUMN_YEAR,ROW_YEAR);
+                display_0_before((time_data.Year+1970)-2000);                
+            }
+        break;
     default:
         break;
     }

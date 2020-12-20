@@ -10,13 +10,31 @@ tmElements_t time_data;
 
 char daysOfTheWeek[8][12] = {"   ","Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"};
 
+
+uint32_t validate_years(int32_t i32_value)
+{
+    if (i32_value > MAX_OF_YEARS)
+    {
+        return i32_value = 2020;
+    }
+    else if (i32_value < 0)
+    {
+        return i32_value = MAX_OF_YEARS;
+    }
+    else
+    {
+        return i32_value;
+    } 
+}
+
+
 uint32_t validate_months(int32_t i32_value)
 {
     if (i32_value > MAX_OF_MONTH)
     {
-        return i32_value = 0;
+        return i32_value = 1;
     }
-    else if (i32_value < 0)
+    else if (i32_value < 1)
     {
         return i32_value = MAX_OF_MONTH;
     }
@@ -30,9 +48,9 @@ uint32_t validate_days(int32_t i32_value)
 {
     if (i32_value > MAX_OF_DAY)
     {
-        return i32_value = 0;
+        return i32_value = 1;
     }
-    else if (i32_value < 0)
+    else if (i32_value < 1)
     {
         return i32_value = MAX_OF_DAY;
     }
@@ -93,13 +111,13 @@ uint32_t validate_wday(int ui32_wday)
 
 void set_time()
 {
-    time_data.Hour = 00;
-    time_data.Minute = 12;
-    time_data.Second = 30;
-    time_data.Day= 20;
-    time_data.Month = 12;
-    time_data.Year = 50;
-    time_data.Wday = 7;
+    // time_data.Hour = 00;
+    // time_data.Minute = 12;
+    // time_data.Second = 30;
+    // time_data.Day= 20;
+    // time_data.Month = 12;
+    // time_data.Year = 50;
+    // time_data.Wday = 7;
     RTC.write(time_data);
 }
 void print2digits(int number)

@@ -13,6 +13,20 @@
 #define ROW_SECOND          1
 #define COLUMN_SECOND       10
 
+
+#define ROW_DAY            0
+#define COLUMN_DAY         5
+
+
+#define ROW_MONTH            0
+#define COLUMN_MONTH          8
+
+#define ROW_YEAR            0
+#define COLUMN_YEAR          13
+
+
+
+
 enum SCREEN_DISPLAY
 {
     MAIN_SCREEN,
@@ -28,3 +42,4 @@ void init_lcd();
 void display_time_lcd(tmElements_t tm);
 void display_test();
 void blink_value(uint32_t ui32_type_display);
+void display_0_before(uint32_t ui32_value);
