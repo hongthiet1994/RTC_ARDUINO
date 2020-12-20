@@ -4,11 +4,25 @@
 #include "module_realtime.h"
 #include "module_display.h"
 
+struct ALARM_DATA
+{
+    uint32_t state;
+    uint32_t hour;
+    uint32_t minute;
+    uint32_t repeat;
+    char label[LEN_LABEL];
+    char wday[LEN_WEEKDAY];
+};
+
+ALARM_DATA data_alarm;
+
 extern uint32_t ui32_current_screen;
 tmElements_t time_data;
 
 
 char daysOfTheWeek[8][12] = {"   ","Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"};
+
+
 
 
 uint32_t validate_years(int32_t i32_value)
