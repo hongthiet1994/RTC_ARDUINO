@@ -10,24 +10,69 @@ tmElements_t time_data;
 
 char daysOfTheWeek[8][12] = {"   ","Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"};
 
+uint32_t validate_months(int32_t i32_value)
+{
+    if (i32_value > MAX_OF_MONTH)
+    {
+        i32_value = 0;
+    }
+    else if (i32_value < 0)
+    {
+        i32_value = MAX_OF_MONTH;
+    }
+}
+
+uint32_t validate_days(int32_t i32_value)
+{
+    if (i32_value > MAX_OF_DAY)
+    {
+        i32_value = 0;
+    }
+    else if (i32_value < 0)
+    {
+        i32_value = MAX_OF_DAY;
+    }
+}
+
+
+uint32_t validate_hours(int32_t i32_value)
+{
+    if (i32_value > MAX_OF_HOUR)
+    {
+        i32_value = 0;
+    }
+    else if (i32_value < 0)
+    {
+        i32_value = MAX_OF_HOUR;
+    }
+}
+
+uint32_t validate_minutes_seconds(int32_t i32_value)
+{
+    if (i32_value > MAX_OF_MINUTE)
+    {
+        i32_value = 0;
+    }
+    else if (i32_value < 0)
+    {
+        i32_value = MAX_OF_MINUTE;
+    }   
+}
 
 uint32_t validate_wday(int ui32_wday)
 {
-    if (ui32_wday>7)
+    if (ui32_wday>MAX_OF_WDAY)
     {
         return ui32_wday = 1;
     }
     else if (ui32_wday<1)
     {
-        return ui32_wday = 7;
+        return ui32_wday = MAX_OF_WDAY;
     }
     else
     {
         return ui32_wday;
-    }
-    
-    
-   
+    }   
 }
 
 void set_time()

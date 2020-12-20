@@ -12,5 +12,5 @@
 
 void get_key();
 void process_key(uint32_t key);
-void change_value_wday_up();
-void change_value_wday_down();
+void change_value_up();
+void change_value_down();
