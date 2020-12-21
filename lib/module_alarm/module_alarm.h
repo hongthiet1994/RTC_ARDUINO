@@ -1,4 +1,6 @@
 
+#define ROW_NUM_OF_ALARM          0
+#define COLUMN_NUM_OF_ALARM       7
 
 #define ROW_STATE_ALARM            0
 #define COLUMN_STATE_ALARM        12

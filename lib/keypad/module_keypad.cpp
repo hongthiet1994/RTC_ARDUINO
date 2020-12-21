@@ -155,6 +155,18 @@ void process_press_key(uint32_t key)
                 lcd.setCursor(COLUMN_REPEAT,ROW_REPEAT);
                 lcd.print(repeat_alarm[data_alarm[ui32_current_alarm].repeat]);                            
             } 
+            else if (ui32_current_screen == SET_WDAY_ALARM_SCREEN)
+            {
+                lcd.setCursor(COLUMN_WDAY_ALARM,ROW_WDAY_ALARM);
+                lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].wday_repeat]);
+                
+                ui32_current_alarm = validate_number_of_alarm(ui32_current_alarm+1); 
+                ui32_current_screen = SET_STATE_ALARM_SCREEN;
+                lcd.setCursor(COLUMN_NUM_OF_ALARM,ROW_NUM_OF_ALARM);    
+                lcd.print(ui32_current_alarm);  
+                
+            }
+            
                     
             
                       

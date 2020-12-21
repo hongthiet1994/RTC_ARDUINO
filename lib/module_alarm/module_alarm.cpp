@@ -46,8 +46,9 @@ uint32_t validate_number_of_alarm(int32_t ui32_alarm)
 void display_set_alarm()
 {    
     lcd.setCursor(1,0);
-    lcd.print("ALARM ");
-    lcd.print(ui32_current_alarm);
+    lcd.print("ALARM ");    
+    lcd.setCursor(COLUMN_NUM_OF_ALARM,ROW_NUM_OF_ALARM);  
+    lcd.print(ui32_current_alarm);  
     lcd.print(":");
     lcd.setCursor(COLUMN_STATE_ALARM,ROW_STATE_ALARM);
     if (data_alarm[ui32_current_alarm].state == ALARM_ON)
