@@ -22,5 +22,14 @@
 #define NUMBER_OF_ALARM                 5
 
 
+struct ALARM_DATA
+{
+    uint32_t state;
+    uint32_t hour;
+    uint32_t minute;
+    uint32_t repeat;
+    uint32_t wday_repeat;
+};
+
 void display_set_alarm();
 uint32_t validate_number_of_alarm(int32_t ui32_alarm);

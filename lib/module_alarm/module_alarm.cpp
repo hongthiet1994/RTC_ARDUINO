@@ -24,14 +24,7 @@ enum REPEAT_ALARM
 char state_alarm[2][4] = {"OFF","ON"};
 char repeat_alarm[2][6] = {"NOREP","REP"};
 
-struct ALARM_DATA
-{
-    uint32_t state;
-    uint32_t hour;
-    uint32_t minute;
-    uint32_t repeat;
-    uint32_t wday_repeat;
-};
+
 
 ALARM_DATA data_alarm[NUMBER_OF_ALARM];
 

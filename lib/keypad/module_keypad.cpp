@@ -132,9 +132,9 @@ void process_press_key(uint32_t key)
             } 
             else if (ui32_current_screen==SET_HOURS_ALARM_SCREEN)
             {
-                ui32_current_screen = SET_MINUTE_SCREEN;                              
+                ui32_current_screen = SET_MINUTES_ALARM_SCREEN;                              
             } 
-            else if (ui32_current_screen==SET_MINUTE_SCREEN)
+            else if (ui32_current_screen==SET_MINUTES_ALARM_SCREEN)
             {
                 ui32_current_screen = SET_REPEAT_ALARM_SCREEN;                              
             } 

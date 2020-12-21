@@ -2,10 +2,16 @@
 #include <TimeLib.h>
 #include <LiquidCrystal_I2C.h>
 #include "module_display.h"
+#include "module_alarm.h"
 
 uint32_t ui32_current_screen = MAIN_SCREEN;
 LiquidCrystal_I2C lcd(0x27,16,2);
 
+extern ALARM_DATA data_alarm[NUMBER_OF_ALARM];
+extern uint32_t ui32_current_alarm;
+extern char state_alarm[2][4];
+extern char repeat_alarm[2][6];
+extern char daysOfTheWeek[8][12];
 extern tmElements_t time_data;
 extern char daysOfTheWeek[8][12];
 
@@ -191,6 +197,66 @@ void blink_value(uint32_t ui32_type_display)
                 display_0_before((time_data.Year+1970)-2000);                
             }
         break;
+
+        case SET_STATE_ALARM_SCREEN:
+            lcd.setCursor(COLUMN_STATE_ALARM,ROW_STATE_ALARM);
+            if (ui32_type_display == NULL)
+            {                
+                lcd.print("   ");
+            }
+            else
+            {               
+                lcd.print(state_alarm[data_alarm[ui32_current_alarm].state]);                
+            }
+        break;
+
+        case SET_HOURS_ALARM_SCREEN:
+             lcd.setCursor(COLUMN_HOUR_ALARM,ROW_HOUR_ALARM);
+            if (ui32_type_display == NULL)
+            {                
+                lcd.print("  ");
+            }
+            else
+            {                
+                display_0_before(data_alarm[ui32_current_alarm].hour);                
+            }
+        break;
+        case SET_MINUTES_ALARM_SCREEN:
+             lcd.setCursor(COLUMN_MINUTE_ALARM,ROW_MINUTE_ALARM);
+            if (ui32_type_display == NULL)
+            {                
+                lcd.print("  ");
+            }
+            else
+            {                
+                display_0_before(data_alarm[ui32_current_alarm].minute);                
+            }
+        break;
+
+        case SET_REPEAT_ALARM_SCREEN:
+            lcd.setCursor(COLUMN_REPEAT,ROW_REPEAT);
+            if (ui32_type_display == NULL)
+            {              
+                lcd.print("     ");
+            }
+            else
+            {
+                lcd.print(repeat_alarm[data_alarm[ui32_current_alarm].repeat]);              
+            }
+        break;
+
+        case SET_WDAY_ALARM_SCREEN:
+            lcd.setCursor(COLUMN_WDAY_ALARM,ROW_WDAY_ALARM);
+            if (ui32_type_display == NULL)
+            {                
+                lcd.print("   ");
+            }
+            else
+            {                
+                lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].wday_repeat]);              
+            }
+        break;
+
     default:
         break;
     }
