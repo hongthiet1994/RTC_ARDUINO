@@ -26,7 +26,6 @@ bool function_timer_500ms()
             get_time(); 
             break;
         case SET_TIMER_SCREEN:
-            
             break;
         default:
             if (ui32_counter_timer_500ms%2==0)

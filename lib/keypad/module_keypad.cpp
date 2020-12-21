@@ -131,8 +131,15 @@ void process_press_key(uint32_t key)
             Serial.println("button down");
             break;
         case KEY_ENTER:
-            set_time();   
-            lcd.clear();
+            if ((ui32_current_screen != MAIN_SCREEN)&&(ui32_current_screen != SET_TIMER_SCREEN))
+            {
+                set_time();   
+                lcd.clear();
+            }
+            else
+            {
+                lcd.clear();
+            }                       
             ui32_current_screen=MAIN_SCREEN;         
             break;
         default:

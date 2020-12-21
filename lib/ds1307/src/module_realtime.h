@@ -8,8 +8,7 @@
 #define MAX_OF_WDAY                7
 #define MAX_OF_YEARS              99
 #define LEN_LABEL                 8
-#define LEN_WEEKDAY               4
-#define MAX_ALARM                 5
+
 
 void set_time();
 void get_time();
