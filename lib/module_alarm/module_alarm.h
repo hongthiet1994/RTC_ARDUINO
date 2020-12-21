@@ -24,11 +24,11 @@
 
 struct ALARM_DATA
 {
-    uint32_t state;
-    uint32_t hour;
-    uint32_t minute;
-    uint32_t repeat;
-    uint32_t wday_repeat;
+    int32_t state;
+    int32_t hour;
+    int32_t minute;
+    int32_t repeat;
+    int32_t wday_repeat;
 };
 
 void display_set_alarm();

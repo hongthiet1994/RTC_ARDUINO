@@ -232,6 +232,46 @@ void change_value_up()
         case SET_ALARM_SCREEN:
             ui32_current_alarm = validate_number_of_alarm(ui32_current_alarm+1);            
             break;
+        case SET_STATE_ALARM_SCREEN:
+            if(data_alarm[ui32_current_alarm].state == false)
+            {
+               data_alarm[ui32_current_alarm].state = true; 
+            }         
+            else
+            {
+                data_alarm[ui32_current_alarm].state = false;
+            }    
+            break;
+        case SET_HOURS_ALARM_SCREEN:
+            data_alarm[ui32_current_alarm].hour = validate_hours(data_alarm[ui32_current_alarm].hour+1);  
+            break;
+        case SET_MINUTES_ALARM_SCREEN:
+            data_alarm[ui32_current_alarm].minute = validate_minutes_seconds(data_alarm[ui32_current_alarm].minute+1);  
+            break;
+        case SET_REPEAT_ALARM_SCREEN:
+            if(data_alarm[ui32_current_alarm].repeat == false)
+            {
+               data_alarm[ui32_current_alarm].repeat = true; 
+            }         
+            else
+            {
+                data_alarm[ui32_current_alarm].repeat = false;
+            } 
+            break;
+        case SET_WDAY_ALARM_SCREEN:
+            data_alarm[ui32_current_alarm].wday_repeat++;
+            if (data_alarm[ui32_current_alarm].wday_repeat > 7)
+            {
+                data_alarm[ui32_current_alarm].wday_repeat = 0;
+            }
+            else if (data_alarm[ui32_current_alarm].wday_repeat < 0)
+            {
+                data_alarm[ui32_current_alarm].wday_repeat = 7;
+            }
+            
+
+            
+            break;
         default:
             break;
     }
@@ -268,6 +308,46 @@ void change_value_down()
             break;
         case SET_ALARM_SCREEN:
             ui32_current_alarm = validate_number_of_alarm(ui32_current_alarm-1); 
+            break;
+        case SET_STATE_ALARM_SCREEN:
+            if(data_alarm[ui32_current_alarm].state == false)
+            {
+               data_alarm[ui32_current_alarm].state = true; 
+            }         
+            else
+            {
+                data_alarm[ui32_current_alarm].state = false;
+            }    
+            break;
+        case SET_HOURS_ALARM_SCREEN:
+            data_alarm[ui32_current_alarm].hour = validate_hours(data_alarm[ui32_current_alarm].hour-1);  
+            break;
+        case SET_MINUTES_ALARM_SCREEN:
+            data_alarm[ui32_current_alarm].minute = validate_minutes_seconds(data_alarm[ui32_current_alarm].minute-1);  
+            break;
+        case SET_REPEAT_ALARM_SCREEN:
+            if(data_alarm[ui32_current_alarm].repeat == false)
+            {
+               data_alarm[ui32_current_alarm].repeat = true; 
+            }         
+            else
+            {
+                data_alarm[ui32_current_alarm].repeat = false;
+            } 
+            break;
+        case SET_WDAY_ALARM_SCREEN:
+            data_alarm[ui32_current_alarm].wday_repeat--;
+            if (data_alarm[ui32_current_alarm].wday_repeat > 7)
+            {
+                data_alarm[ui32_current_alarm].wday_repeat = 0;
+            }
+            else if (data_alarm[ui32_current_alarm].wday_repeat < 0)
+            {
+                data_alarm[ui32_current_alarm].wday_repeat = 7;
+            }
+            
+
+            
             break;
         default:
             break;
