@@ -6,6 +6,11 @@
 #include "module_alarm.h"
 
 
+extern ALARM_DATA data_alarm[NUMBER_OF_ALARM];
+
+extern char state_alarm[2][4];
+extern char repeat_alarm[2][6];
+
 extern uint32_t ui32_current_alarm;
 uint32_t ui32_hold_key_detect = false;
 extern char daysOfTheWeek[8][12];
@@ -128,19 +133,27 @@ void process_press_key(uint32_t key)
             } 
             else if (ui32_current_screen==SET_STATE_ALARM_SCREEN)
             {
-                ui32_current_screen = SET_HOURS_ALARM_SCREEN;                              
+                ui32_current_screen = SET_HOURS_ALARM_SCREEN; 
+                lcd.setCursor(COLUMN_STATE_ALARM,ROW_STATE_ALARM);  
+                lcd.print(state_alarm[data_alarm[ui32_current_alarm].state]);                           
             } 
             else if (ui32_current_screen==SET_HOURS_ALARM_SCREEN)
             {
-                ui32_current_screen = SET_MINUTES_ALARM_SCREEN;                              
+                ui32_current_screen = SET_MINUTES_ALARM_SCREEN; 
+                lcd.setCursor(COLUMN_HOUR_ALARM,ROW_HOUR_ALARM);
+                display_0_before(data_alarm[ui32_current_alarm].hour);                              
             } 
             else if (ui32_current_screen==SET_MINUTES_ALARM_SCREEN)
             {
-                ui32_current_screen = SET_REPEAT_ALARM_SCREEN;                              
+                ui32_current_screen = SET_REPEAT_ALARM_SCREEN;  
+                lcd.setCursor(COLUMN_MINUTE_ALARM,ROW_MINUTE_ALARM);
+                display_0_before(data_alarm[ui32_current_alarm].minute);                             
             } 
             else if (ui32_current_screen==SET_REPEAT_ALARM_SCREEN)
             {
-                ui32_current_screen = SET_WDAY_ALARM_SCREEN;                              
+                ui32_current_screen = SET_WDAY_ALARM_SCREEN;  
+                lcd.setCursor(COLUMN_REPEAT,ROW_REPEAT);
+                lcd.print(repeat_alarm[data_alarm[ui32_current_alarm].repeat]);                            
             } 
                     
             

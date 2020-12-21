@@ -211,7 +211,7 @@ void blink_value(uint32_t ui32_type_display)
         break;
 
         case SET_HOURS_ALARM_SCREEN:
-             lcd.setCursor(COLUMN_HOUR_ALARM,ROW_HOUR_ALARM);
+            lcd.setCursor(COLUMN_HOUR_ALARM,ROW_HOUR_ALARM);
             if (ui32_type_display == NULL)
             {                
                 lcd.print("  ");
