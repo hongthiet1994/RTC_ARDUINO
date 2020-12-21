@@ -5,6 +5,8 @@
 #include "module_realtime.h"
 #include "module_alarm.h"
 
+
+extern uint32_t ui32_current_alarm;
 uint32_t ui32_hold_key_detect = false;
 extern char daysOfTheWeek[8][12];
 extern LiquidCrystal_I2C lcd;
@@ -122,7 +124,23 @@ void process_press_key(uint32_t key)
             } 
             else if (ui32_current_screen==SET_ALARM_SCREEN)
             {
-                              
+                ui32_current_screen = SET_STATE_ALARM_SCREEN;                              
+            } 
+            else if (ui32_current_screen==SET_STATE_ALARM_SCREEN)
+            {
+                ui32_current_screen = SET_HOURS_ALARM_SCREEN;                              
+            } 
+            else if (ui32_current_screen==SET_HOURS_ALARM_SCREEN)
+            {
+                ui32_current_screen = SET_MINUTE_SCREEN;                              
+            } 
+            else if (ui32_current_screen==SET_MINUTE_SCREEN)
+            {
+                ui32_current_screen = SET_REPEAT_ALARM_SCREEN;                              
+            } 
+            else if (ui32_current_screen==SET_REPEAT_ALARM_SCREEN)
+            {
+                ui32_current_screen = SET_WDAY_ALARM_SCREEN;                              
             } 
                     
             
@@ -158,7 +176,8 @@ void process_hold_key(uint32_t key)
     switch (key)
     {
         case KEY_SETING: 
-            ui32_current_screen = SET_ALARM_SCREEN;                    
+            ui32_current_screen = SET_ALARM_SCREEN;     
+            lcd.clear();               
             break;   
         default:
             break;
@@ -197,6 +216,9 @@ void change_value_up()
             time_data.Year = validate_years(time_data.Year+1);
             Serial.println(time_data.Year); 
             break;
+        case SET_ALARM_SCREEN:
+            ui32_current_alarm = validate_number_of_alarm(ui32_current_alarm+1);            
+            break;
         default:
             break;
     }
@@ -230,6 +252,9 @@ void change_value_down()
         case SET_YEAR_SCREEN:
             time_data.Year = validate_years(time_data.Year-1);
             Serial.println(time_data.Year); 
+            break;
+        case SET_ALARM_SCREEN:
+            ui32_current_alarm = validate_number_of_alarm(ui32_current_alarm-1); 
             break;
         default:
             break;

@@ -10,18 +10,19 @@ uint32_t ui32_current_alarm = 0;
 
 enum STATE_ALARM
 {
-	ALARM_ON,
-    ALARM_OFF
+	ALARM_OFF,
+    ALARM_ON
 };
 
 enum REPEAT_ALARM
 {
-	REPEAT,
-    NOREPEAT
+	NOREPEAT,
+    REPEAT
+    
 };
 
-char state_alarm[2][3] = {"ON","OFF"};
-char repeat_alarm[2][5] = {"REP","NOREP"};
+char state_alarm[2][4] = {"OFF","ON"};
+char repeat_alarm[2][6] = {"NOREP","REP"};
 
 struct ALARM_DATA
 {
@@ -50,8 +51,7 @@ uint32_t validate_number_of_alarm(int32_t ui32_alarm)
 
 
 void display_set_alarm()
-{
-    lcd.clear();
+{    
     lcd.setCursor(1,0);
     lcd.print("ALARM ");
     lcd.print(ui32_current_alarm);
