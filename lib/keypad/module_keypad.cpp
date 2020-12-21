@@ -3,6 +3,7 @@
 #include "module_keypad.h"
 #include "module_display.h"
 #include "module_realtime.h"
+#include "module_alarm.h"
 
 uint32_t ui32_hold_key_detect = false;
 extern char daysOfTheWeek[8][12];
@@ -118,7 +119,12 @@ void process_press_key(uint32_t key)
                 ui32_current_screen = MAIN_SCREEN; 
                 lcd.setCursor(COLUMN_YEAR,ROW_YEAR);
                 display_0_before((time_data.Year+1970)-2000);                  
-            }         
+            } 
+            else if (ui32_current_screen==SET_ALARM_SCREEN)
+            {
+                              
+            } 
+                    
             
                       
             break;   
@@ -131,7 +137,7 @@ void process_press_key(uint32_t key)
             Serial.println("button down");
             break;
         case KEY_ENTER:
-            if ((ui32_current_screen != MAIN_SCREEN)&&(ui32_current_screen != SET_TIMER_SCREEN))
+            if ((ui32_current_screen != MAIN_SCREEN)&&(ui32_current_screen != SET_ALARM_SCREEN))
             {
                 set_time();   
                 lcd.clear();
@@ -152,8 +158,7 @@ void process_hold_key(uint32_t key)
     switch (key)
     {
         case KEY_SETING: 
-            ui32_current_screen = SET_TIMER_SCREEN;  
-            display_set_timer();       
+            ui32_current_screen = SET_ALARM_SCREEN;                    
             break;   
         default:
             break;

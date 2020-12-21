@@ -7,7 +7,7 @@
 #define MAX_OF_SECOND             60 
 #define MAX_OF_WDAY                7
 #define MAX_OF_YEARS              99
-#define LEN_LABEL                 8
+
 
 
 void set_time();

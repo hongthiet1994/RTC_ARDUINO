@@ -5,13 +5,13 @@
 #include "module_display.h"
 
 
-uint32_t ui32_current_alarm = 0;
+
 
 extern uint32_t ui32_current_screen;
 tmElements_t time_data;
 
 
-char daysOfTheWeek[8][12] = {"All","Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"};
+char daysOfTheWeek[8][12] = {"ALL","Mon", "Tue", "Wed", "Thu", "Fri", "Sat","Sun"};
 
 
 

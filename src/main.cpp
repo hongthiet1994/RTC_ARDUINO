@@ -8,6 +8,7 @@
 #include "module_realtime.h"
 #include "module_display.h"
 #include "module_timer.h"
+#include "module_alarm.h"
 
 #define LED_DEBUG 13
 

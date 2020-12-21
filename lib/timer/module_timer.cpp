@@ -4,7 +4,7 @@
 #include "module_timer.h"
 #include "module_display.h"
 #include "module_realtime.h"
-
+#include "module_alarm.h"
 
 
 extern tmElements_t time_data;
@@ -25,7 +25,8 @@ bool function_timer_500ms()
         case MAIN_SCREEN:
             get_time(); 
             break;
-        case SET_TIMER_SCREEN:
+        case SET_ALARM_SCREEN:
+             display_set_alarm(); 
             break;
         default:
             if (ui32_counter_timer_500ms%2==0)
