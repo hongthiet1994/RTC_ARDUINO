@@ -164,12 +164,7 @@ void process_press_key(uint32_t key)
                 ui32_current_screen = SET_STATE_ALARM_SCREEN;
                 lcd.setCursor(COLUMN_NUM_OF_ALARM,ROW_NUM_OF_ALARM);    
                 lcd.print(ui32_current_alarm);  
-                
-            }
-            
-                    
-            
-                      
+            }                      
             break;   
         case KEY_UP:
             change_value_up();
