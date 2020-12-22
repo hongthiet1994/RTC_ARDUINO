@@ -206,7 +206,7 @@ void blink_value(uint32_t ui32_type_display)
             }
             else
             {               
-                lcd.print(state_alarm[data_alarm[ui32_current_alarm].state]);                
+                lcd.print(state_alarm[data_alarm[ui32_current_alarm].data.state]);                
             }
         break;
 
@@ -218,7 +218,7 @@ void blink_value(uint32_t ui32_type_display)
             }
             else
             {                
-                display_0_before(data_alarm[ui32_current_alarm].hour);                
+                display_0_before(data_alarm[ui32_current_alarm].data.hour);                
             }
         break;
         case SET_MINUTES_ALARM_SCREEN:
@@ -229,7 +229,7 @@ void blink_value(uint32_t ui32_type_display)
             }
             else
             {                
-                display_0_before(data_alarm[ui32_current_alarm].minute);                
+                display_0_before(data_alarm[ui32_current_alarm].data.minute);                
             }
         break;
 
@@ -241,7 +241,7 @@ void blink_value(uint32_t ui32_type_display)
             }
             else
             {
-                lcd.print(repeat_alarm[data_alarm[ui32_current_alarm].repeat]);              
+                lcd.print(repeat_alarm[data_alarm[ui32_current_alarm].data.repeat]);              
             }
         break;
 
@@ -253,7 +253,7 @@ void blink_value(uint32_t ui32_type_display)
             }
             else
             {                
-                lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].wday_repeat]);              
+                lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].data.wday_repeat]);              
             }
         break;
 

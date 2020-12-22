@@ -135,30 +135,30 @@ void process_press_key(uint32_t key)
             {
                 ui32_current_screen = SET_HOURS_ALARM_SCREEN; 
                 lcd.setCursor(COLUMN_STATE_ALARM,ROW_STATE_ALARM);  
-                lcd.print(state_alarm[data_alarm[ui32_current_alarm].state]);                           
+                lcd.print(state_alarm[data_alarm[ui32_current_alarm].data.state]);                           
             } 
             else if (ui32_current_screen==SET_HOURS_ALARM_SCREEN)
             {
                 ui32_current_screen = SET_MINUTES_ALARM_SCREEN; 
                 lcd.setCursor(COLUMN_HOUR_ALARM,ROW_HOUR_ALARM);
-                display_0_before(data_alarm[ui32_current_alarm].hour);                              
+                display_0_before(data_alarm[ui32_current_alarm].data.hour);                              
             } 
             else if (ui32_current_screen==SET_MINUTES_ALARM_SCREEN)
             {
                 ui32_current_screen = SET_REPEAT_ALARM_SCREEN;  
                 lcd.setCursor(COLUMN_MINUTE_ALARM,ROW_MINUTE_ALARM);
-                display_0_before(data_alarm[ui32_current_alarm].minute);                             
+                display_0_before(data_alarm[ui32_current_alarm].data.minute);                             
             } 
             else if (ui32_current_screen==SET_REPEAT_ALARM_SCREEN)
             {
                 ui32_current_screen = SET_WDAY_ALARM_SCREEN;  
                 lcd.setCursor(COLUMN_REPEAT,ROW_REPEAT);
-                lcd.print(repeat_alarm[data_alarm[ui32_current_alarm].repeat]);                            
+                lcd.print(repeat_alarm[data_alarm[ui32_current_alarm].data.repeat]);                            
             } 
             else if (ui32_current_screen == SET_WDAY_ALARM_SCREEN)
             {
                 lcd.setCursor(COLUMN_WDAY_ALARM,ROW_WDAY_ALARM);
-                lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].wday_repeat]);
+                lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].data.wday_repeat]);
                 
                 ui32_current_alarm = validate_number_of_alarm(ui32_current_alarm+1); 
                 ui32_current_screen = SET_STATE_ALARM_SCREEN;
@@ -240,40 +240,40 @@ void change_value_up()
             ui32_current_alarm = validate_number_of_alarm(ui32_current_alarm+1);            
             break;
         case SET_STATE_ALARM_SCREEN:
-            if(data_alarm[ui32_current_alarm].state == false)
+            if(data_alarm[ui32_current_alarm].data.state == false)
             {
-               data_alarm[ui32_current_alarm].state = true; 
+               data_alarm[ui32_current_alarm].data.state = true; 
             }         
             else
             {
-                data_alarm[ui32_current_alarm].state = false;
+                data_alarm[ui32_current_alarm].data.state = false;
             }    
             break;
         case SET_HOURS_ALARM_SCREEN:
-            data_alarm[ui32_current_alarm].hour = validate_hours(data_alarm[ui32_current_alarm].hour+1);  
+            data_alarm[ui32_current_alarm].data.hour = validate_hours(data_alarm[ui32_current_alarm].data.hour+1);  
             break;
         case SET_MINUTES_ALARM_SCREEN:
-            data_alarm[ui32_current_alarm].minute = validate_minutes_seconds(data_alarm[ui32_current_alarm].minute+1);  
+            data_alarm[ui32_current_alarm].data.minute = validate_minutes_seconds(data_alarm[ui32_current_alarm].data.minute+1);  
             break;
         case SET_REPEAT_ALARM_SCREEN:
-            if(data_alarm[ui32_current_alarm].repeat == false)
+            if(data_alarm[ui32_current_alarm].data.repeat == false)
             {
-               data_alarm[ui32_current_alarm].repeat = true; 
+               data_alarm[ui32_current_alarm].data.repeat = true; 
             }         
             else
             {
-                data_alarm[ui32_current_alarm].repeat = false;
+                data_alarm[ui32_current_alarm].data.repeat = false;
             } 
             break;
         case SET_WDAY_ALARM_SCREEN:
-            data_alarm[ui32_current_alarm].wday_repeat++;
-            if (data_alarm[ui32_current_alarm].wday_repeat > 7)
+            data_alarm[ui32_current_alarm].data.wday_repeat++;
+            if (data_alarm[ui32_current_alarm].data.wday_repeat > 7)
             {
-                data_alarm[ui32_current_alarm].wday_repeat = 0;
+                data_alarm[ui32_current_alarm].data.wday_repeat = 0;
             }
-            else if (data_alarm[ui32_current_alarm].wday_repeat < 0)
+            else if (data_alarm[ui32_current_alarm].data.wday_repeat < 0)
             {
-                data_alarm[ui32_current_alarm].wday_repeat = 7;
+                data_alarm[ui32_current_alarm].data.wday_repeat = 7;
             }
             
 
@@ -317,40 +317,40 @@ void change_value_down()
             ui32_current_alarm = validate_number_of_alarm(ui32_current_alarm-1); 
             break;
         case SET_STATE_ALARM_SCREEN:
-            if(data_alarm[ui32_current_alarm].state == false)
+            if(data_alarm[ui32_current_alarm].data.state == false)
             {
-               data_alarm[ui32_current_alarm].state = true; 
+               data_alarm[ui32_current_alarm].data.state = true; 
             }         
             else
             {
-                data_alarm[ui32_current_alarm].state = false;
+                data_alarm[ui32_current_alarm].data.state = false;
             }    
             break;
         case SET_HOURS_ALARM_SCREEN:
-            data_alarm[ui32_current_alarm].hour = validate_hours(data_alarm[ui32_current_alarm].hour-1);  
+            data_alarm[ui32_current_alarm].data.hour = validate_hours(data_alarm[ui32_current_alarm].data.hour-1);  
             break;
         case SET_MINUTES_ALARM_SCREEN:
-            data_alarm[ui32_current_alarm].minute = validate_minutes_seconds(data_alarm[ui32_current_alarm].minute-1);  
+            data_alarm[ui32_current_alarm].data.minute = validate_minutes_seconds(data_alarm[ui32_current_alarm].data.minute-1);  
             break;
         case SET_REPEAT_ALARM_SCREEN:
-            if(data_alarm[ui32_current_alarm].repeat == false)
+            if(data_alarm[ui32_current_alarm].data.repeat == false)
             {
-               data_alarm[ui32_current_alarm].repeat = true; 
+               data_alarm[ui32_current_alarm].data.repeat = true; 
             }         
             else
             {
-                data_alarm[ui32_current_alarm].repeat = false;
+                data_alarm[ui32_current_alarm].data.repeat = false;
             } 
             break;
         case SET_WDAY_ALARM_SCREEN:
-            data_alarm[ui32_current_alarm].wday_repeat--;
-            if (data_alarm[ui32_current_alarm].wday_repeat > 7)
+            data_alarm[ui32_current_alarm].data.wday_repeat--;
+            if (data_alarm[ui32_current_alarm].data.wday_repeat > 7)
             {
-                data_alarm[ui32_current_alarm].wday_repeat = 0;
+                data_alarm[ui32_current_alarm].data.wday_repeat = 0;
             }
-            else if (data_alarm[ui32_current_alarm].wday_repeat < 0)
+            else if (data_alarm[ui32_current_alarm].data.wday_repeat < 0)
             {
-                data_alarm[ui32_current_alarm].wday_repeat = 7;
+                data_alarm[ui32_current_alarm].data.wday_repeat = 7;
             }
             
 

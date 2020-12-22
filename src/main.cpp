@@ -9,7 +9,7 @@
 #include "module_display.h"
 #include "module_timer.h"
 #include "module_alarm.h"
-
+#include "module_eeprom.h"
 #define LED_DEBUG 13
 
 

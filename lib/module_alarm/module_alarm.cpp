@@ -51,7 +51,7 @@ void display_set_alarm()
     lcd.print(ui32_current_alarm);  
     lcd.print(":");
     lcd.setCursor(COLUMN_STATE_ALARM,ROW_STATE_ALARM);
-    if (data_alarm[ui32_current_alarm].state == ALARM_ON)
+    if (data_alarm[ui32_current_alarm].data.state == ALARM_ON)
     {
         lcd.print(state_alarm[ALARM_ON]);
     }
@@ -60,14 +60,14 @@ void display_set_alarm()
         lcd.print(state_alarm[ALARM_OFF]);        
     }
     lcd.setCursor(COLUMN_HOUR_ALARM,ROW_HOUR_ALARM);
-    display_0_before(data_alarm[ui32_current_alarm].hour);
+    display_0_before(data_alarm[ui32_current_alarm].data.hour);
     lcd.print(":");
     lcd.setCursor(COLUMN_MINUTE_ALARM,ROW_MINUTE_ALARM);
-    display_0_before(data_alarm[ui32_current_alarm].minute);
+    display_0_before(data_alarm[ui32_current_alarm].data.minute);
 
     lcd.setCursor(COLUMN_REPEAT,ROW_REPEAT);
 
-    if (data_alarm[ui32_current_alarm].repeat == REPEAT)
+    if (data_alarm[ui32_current_alarm].data.repeat == REPEAT)
     {
         lcd.print(repeat_alarm[REPEAT]);
     }
@@ -77,7 +77,7 @@ void display_set_alarm()
     }
 
     lcd.setCursor(COLUMN_WDAY_ALARM,ROW_WDAY_ALARM);
-    lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].wday_repeat]);
+    lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].data.wday_repeat]);
     
 
     //display_0_before((time_data.Year+1970)-2000);  

@@ -24,14 +24,18 @@
 #define NUMBER_OF_ALARM                 5
 
 
-struct ALARM_DATA
+typedef union
 {
-    int32_t state;
-    int32_t hour;
-    int32_t minute;
-    int32_t repeat;
-    int32_t wday_repeat;
-};
+	struct alarm_data
+	{
+        int32_t state;
+        int32_t hour;
+        int32_t minute;
+        int32_t repeat;
+        int32_t wday_repeat;
+	} data;
+	char bufferDeviceinfor[sizeof(alarm_data)];
+} ALARM_DATA;
 
 void display_set_alarm();
 uint32_t validate_number_of_alarm(int32_t ui32_alarm);
