@@ -175,21 +175,24 @@ void process_press_key(uint32_t key)
             change_value_down();
             Serial.println("button down");
             break;
-        case KEY_ENTER:
-            if ((ui32_current_screen != MAIN_SCREEN)&&(ui32_current_screen != SET_ALARM_SCREEN))
+        case KEY_ENTER:       
+            if ((ui32_current_screen >== SET_WDAY_SCREEN)&&(ui32_current_screen <= SET_YEAR_SCREEN))
             {
                 set_time();   
                 lcd.clear();
+                ui32_current_screen=MAIN_SCREEN; 
             }
             else if ((ui32_current_screen >= SET_ALARM_SCREEN) && (ui32_current_screen <= SET_WDAY_ALARM_SCREEN))
             {
                 write_data_alarm();
+                lcd.clear();
+                ui32_current_screen=MAIN_SCREEN;
             }
             else 
             {
                 lcd.clear();
             }                       
-            ui32_current_screen=MAIN_SCREEN;         
+                    
             break;
         default:
             break;
