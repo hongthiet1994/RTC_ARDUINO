@@ -176,7 +176,7 @@ void process_press_key(uint32_t key)
             Serial.println("button down");
             break;
         case KEY_ENTER:       
-            if ((ui32_current_screen >== SET_WDAY_SCREEN)&&(ui32_current_screen <= SET_YEAR_SCREEN))
+            if ((ui32_current_screen >= SET_WDAY_SCREEN)&&(ui32_current_screen <= SET_YEAR_SCREEN))
             {
                 set_time();   
                 lcd.clear();
