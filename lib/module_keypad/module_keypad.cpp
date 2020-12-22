@@ -4,6 +4,7 @@
 #include "module_display.h"
 #include "module_realtime.h"
 #include "module_alarm.h"
+#include "module_eeprom.h"
 
 
 extern ALARM_DATA data_alarm[NUMBER_OF_ALARM];
@@ -180,7 +181,11 @@ void process_press_key(uint32_t key)
                 set_time();   
                 lcd.clear();
             }
-            else
+            else if ((ui32_current_screen >= SET_ALARM_SCREEN) && (ui32_current_screen <= SET_WDAY_ALARM_SCREEN))
+            {
+                write_data_alarm();
+            }
+            else 
             {
                 lcd.clear();
             }                       

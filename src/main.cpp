@@ -24,6 +24,7 @@ void setup()
   Serial.println("Init project realtime clock");
   Serial.println("---------------------------"); 
   //set_time();
+  read_data_alarm();
 }
 
 
