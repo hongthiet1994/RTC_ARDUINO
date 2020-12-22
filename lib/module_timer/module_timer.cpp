@@ -10,16 +10,16 @@
 extern tmElements_t time_data;
 extern uint32_t ui32_current_screen;
 auto timer = timer_create_default(); // create a timer with default settings
-uint32_t ui32_counter_timer_500ms = 0;
+uint32_t ui32_counter_timer_250ms = 0;
 
 void init_timer()
 {    // call the toggle_led function every 1000 millis (1 second)
-  timer.every(250, function_timer_500ms);
+  timer.every(250, function_timer_250ms);
 }
 
-bool function_timer_500ms()
+bool function_timer_250ms()
 {
-    ui32_counter_timer_500ms++;
+    ui32_counter_timer_250ms++;
     switch (ui32_current_screen)
     {
         case MAIN_SCREEN:
@@ -29,7 +29,7 @@ bool function_timer_500ms()
              display_set_alarm(); 
             break;
         default:
-            if (ui32_counter_timer_500ms%2==0)
+            if (ui32_counter_timer_250ms%2==0)
             {
                 blink_value(NULL);
             }
