@@ -158,13 +158,16 @@ void process_press_key(uint32_t key)
             } 
             else if (ui32_current_screen == SET_WDAY_ALARM_SCREEN)
             {
-                lcd.setCursor(COLUMN_WDAY_ALARM,ROW_WDAY_ALARM);
-                lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].data.wday_repeat]);
+                
+                //lcd.setCursor(COLUMN_WDAY_ALARM,ROW_WDAY_ALARM);
+                //lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].data.wday_repeat]);
                 
                 ui32_current_alarm = validate_number_of_alarm(ui32_current_alarm+1); 
                 ui32_current_screen = SET_STATE_ALARM_SCREEN;
-                lcd.setCursor(COLUMN_NUM_OF_ALARM,ROW_NUM_OF_ALARM);    
-                lcd.print(ui32_current_alarm);  
+                lcd.clear();
+                display_set_alarm();
+                //lcd.setCursor(COLUMN_NUM_OF_ALARM,ROW_NUM_OF_ALARM);    
+                //lcd.print(ui32_current_alarm);  
             }                      
             break;   
         case KEY_UP:
