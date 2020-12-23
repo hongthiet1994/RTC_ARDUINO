@@ -8,6 +8,7 @@
 #include "module_alarm.h"
 
 
+
 extern tmElements_t time_data;
 extern uint32_t ui32_current_screen;
 auto timer = timer_create_default(); // create a timer with default settings
@@ -46,7 +47,7 @@ bool function_timer_250ms()
     if (ui32_current_screen != MAIN_SCREEN)
     {
         ui32_counter_return_main_screen++;
-        if (ui32_counter_return_main_screen>=20)
+        if (ui32_counter_return_main_screen>=40)
         {
             ui32_counter_return_main_screen = 0;
             lcd.clear();  
@@ -54,6 +55,7 @@ bool function_timer_250ms()
         }
         
     }
+    check_alarm();
     
 
     return true; // repeat? true

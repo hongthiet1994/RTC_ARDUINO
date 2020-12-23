@@ -1,9 +1,13 @@
 #include "Arduino.h"
 #include "module_alarm.h"
+#include "TimeLib.h"
 #include <LiquidCrystal_I2C.h>
 #include "module_display.h"
+#include "module_eeprom.h"
 
 
+extern uint32_t ui32_current_screen;
+extern tmElements_t time_data;
 extern char daysOfTheWeek[8][12];
 extern LiquidCrystal_I2C lcd;
 uint32_t ui32_current_alarm = 0;
@@ -20,6 +24,9 @@ enum REPEAT_ALARM
     REPEAT
     
 };
+
+uint32_t ui32_status_alarm = false;
+uint32_t ui32_counter_time_turn_on_alarm = 0;
 
 char state_alarm[2][4] = {"OFF","ON"};
 char repeat_alarm[2][6] = {"NOREP","REP"};
@@ -78,7 +85,48 @@ void display_set_alarm()
 
     lcd.setCursor(COLUMN_WDAY_ALARM,ROW_WDAY_ALARM);
     lcd.print(daysOfTheWeek[data_alarm[ui32_current_alarm].data.wday_repeat]);
-    
-
     //display_0_before((time_data.Year+1970)-2000);  
+}
+
+void check_alarm()
+{
+    uint32_t i = 0;
+    if(ui32_current_screen == MAIN_SCREEN)
+    {
+        for (i = 0; i < NUMBER_OF_ALARM; i++)
+        {
+            if (data_alarm[i].data.state == ALARM_ON)
+            {
+                if ((data_alarm[i].data.hour == time_data.Hour) && (data_alarm[i].data.minute == time_data.Minute))
+                {
+                    ui32_current_screen = TURN_ON_TIMER_SCREEN;
+                    data_alarm[i].data.state = ALARM_ON;
+                    write_data_alarm();
+                    lcd.clear();
+                    lcd.print("TIMER ");
+                    lcd.print(i);
+                    lcd.print(" ON");
+                    ui32_counter_time_turn_on_alarm = 0;
+                    ui32_status_alarm = true;
+
+                }            
+            }       
+        }
+    }
+}
+
+void turn_on_alarm()
+{
+   if (ui32_status_alarm == true)
+   {
+       ui32_counter_time_turn_on_alarm++;
+       if (ui32_counter_time_turn_on_alarm>=TIME_TURN_ON_ALARM)
+       {
+           ui32_status_alarm = false;
+           lcd.clear();
+           ui32_current_screen = MAIN_SCREEN;
+       }
+       
+   }
+    
 }

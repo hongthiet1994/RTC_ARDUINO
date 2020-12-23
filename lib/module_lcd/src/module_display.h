@@ -42,7 +42,8 @@ enum SCREEN_DISPLAY
     SET_HOURS_ALARM_SCREEN,
     SET_MINUTES_ALARM_SCREEN,
     SET_REPEAT_ALARM_SCREEN,
-    SET_WDAY_ALARM_SCREEN
+    SET_WDAY_ALARM_SCREEN,
+    TURN_ON_TIMER_SCREEN
 };
 void init_lcd();
 void display_time_lcd(tmElements_t tm);

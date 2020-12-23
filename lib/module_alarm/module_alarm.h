@@ -1,4 +1,6 @@
 
+#define TIME_TURN_ON_ALARM           4*10
+
 #define ROW_NUM_OF_ALARM          0
 #define COLUMN_NUM_OF_ALARM       7
 
@@ -39,3 +41,4 @@ typedef union
 
 void display_set_alarm();
 uint32_t validate_number_of_alarm(int32_t ui32_alarm);
+void check_alarm();
