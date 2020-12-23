@@ -1,5 +1,5 @@
 
-#define TIME_RETURN_MAIN_SCREEN       20
+#define TIME_RETURN_MAIN_SCREEN       40
 
 void init_timer();
 void tick_timer();

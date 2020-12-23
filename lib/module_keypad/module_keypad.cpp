@@ -8,6 +8,7 @@
 
 
 extern ALARM_DATA data_alarm[NUMBER_OF_ALARM];
+extern uint32_t ui32_counter_return_main_screen;
 
 extern char state_alarm[2][4];
 extern char repeat_alarm[2][6];
@@ -55,6 +56,7 @@ void get_key()
             ui32_hold_key_detect = true;
             Serial.print("Hold key : ");
             Serial.println(key);
+            ui32_counter_return_main_screen = 0;
             process_hold_key(key);
         }
         delay(HOLD_DELAY);
@@ -67,6 +69,7 @@ void get_key()
             ui32_hold_key_detect = false;
             Serial.print("Press key : ");
             Serial.println(key);
+            ui32_counter_return_main_screen = 0;
             process_press_key(key);    
         }        
     }
