@@ -42,3 +42,4 @@ typedef union
 void display_set_alarm();
 uint32_t validate_number_of_alarm(int32_t ui32_alarm);
 void check_alarm();
+void turn_on_alarm();

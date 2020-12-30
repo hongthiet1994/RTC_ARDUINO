@@ -44,7 +44,7 @@ bool function_timer_250ms()
             } 
             break;
     }
-    if (ui32_current_screen != MAIN_SCREEN)
+    if ((ui32_current_screen != MAIN_SCREEN)&&(ui32_current_screen != TURN_ON_TIMER_SCREEN))
     {
         ui32_counter_return_main_screen++;
         if (ui32_counter_return_main_screen>=40)
@@ -56,6 +56,7 @@ bool function_timer_250ms()
         
     }
     check_alarm();
+    turn_on_alarm();
     
 
     return true; // repeat? true

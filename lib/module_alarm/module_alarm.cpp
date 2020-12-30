@@ -100,7 +100,7 @@ void check_alarm()
                 if ((data_alarm[i].data.hour == time_data.Hour) && (data_alarm[i].data.minute == time_data.Minute))
                 {
                     ui32_current_screen = TURN_ON_TIMER_SCREEN;
-                    data_alarm[i].data.state = ALARM_ON;
+                    data_alarm[i].data.state = ALARM_OFF;
                     write_data_alarm();
                     lcd.clear();
                     lcd.print("TIMER ");
