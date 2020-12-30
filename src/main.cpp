@@ -21,6 +21,7 @@ void setup()
   pinMode(LED_DEBUG, OUTPUT);
   init_lcd();
   init_timer();
+  init_buzzer();
   Serial.println("Init project realtime clock");
   Serial.println("---------------------------"); 
   //set_time();

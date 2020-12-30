@@ -108,6 +108,7 @@ void check_alarm()
                     lcd.print(" ON");
                     ui32_counter_time_turn_on_alarm = 0;
                     ui32_status_alarm = true;
+                    turn_on_buzzer();
 
                 }            
             }       
@@ -125,8 +126,25 @@ void turn_on_alarm()
            ui32_status_alarm = false;
            lcd.clear();
            ui32_current_screen = MAIN_SCREEN;
+           turn_off_buzzer();
        }
        
    }
     
+}
+
+void init_buzzer()
+{
+    pinMode(PIN_BUZZER,OUTPUT);
+    digitalWrite(PIN_BUZZER,HIGH);
+}
+
+void turn_on_buzzer()
+{
+    digitalWrite(PIN_BUZZER,LOW);
+}
+
+void turn_off_buzzer()
+{
+    digitalWrite(PIN_BUZZER,HIGH);
 }
