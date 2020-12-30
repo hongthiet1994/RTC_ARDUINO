@@ -97,20 +97,65 @@ void check_alarm()
         {
             if (data_alarm[i].data.state == ALARM_ON)
             {
-                if ((data_alarm[i].data.hour == time_data.Hour) && (data_alarm[i].data.minute == time_data.Minute))
+                
+                if (data_alarm[i].data.repeat == REPEAT)  // all day
                 {
-                    ui32_current_screen = TURN_ON_TIMER_SCREEN;
-                    data_alarm[i].data.state = ALARM_OFF;
-                    write_data_alarm();
-                    lcd.clear();
-                    lcd.print("TIMER ");
-                    lcd.print(i);
-                    lcd.print(" ON");
-                    ui32_counter_time_turn_on_alarm = 0;
-                    ui32_status_alarm = true;
-                    turn_on_buzzer();
+                    
+                    if (data_alarm[i].data.wday_repeat == 0) // all day
+                    {
+                        if ((data_alarm[i].data.hour == time_data.Hour) && (data_alarm[i].data.minute == time_data.Minute)&& (time_data.Second==0))
+                        {
+                            ui32_current_screen = TURN_ON_TIMER_SCREEN;
+                            lcd.clear();
+                            lcd.print("TIMER ");
+                            lcd.print(i);
+                            lcd.print(" ON");
+                            ui32_counter_time_turn_on_alarm = 0;
+                            ui32_status_alarm = true;
+                            turn_on_buzzer();
+                        } 
 
-                }            
+                    }
+                    else
+                    {
+                        if (data_alarm[i].data.wday_repeat == time_data.Wday) 
+                        {
+                            if ((data_alarm[i].data.hour == time_data.Hour) && (data_alarm[i].data.minute == time_data.Minute) && (time_data.Second==0))
+                            {
+                                ui32_current_screen = TURN_ON_TIMER_SCREEN;
+                                lcd.clear();
+                                lcd.print("TIMER ");
+                                lcd.print(i);
+                                lcd.print(" ON");
+                                ui32_counter_time_turn_on_alarm = 0;
+                                ui32_status_alarm = true;
+                                turn_on_buzzer();
+                            } 
+                        }
+                        
+                    }
+                    
+                    
+                }
+                else
+                {
+                    if ((data_alarm[i].data.hour == time_data.Hour) && (data_alarm[i].data.minute == time_data.Minute)&& (time_data.Second==0))
+                    {
+                        ui32_current_screen = TURN_ON_TIMER_SCREEN;
+                        data_alarm[i].data.state = ALARM_OFF;
+                        write_data_alarm();
+                        lcd.clear();
+                        lcd.print("TIMER ");
+                        lcd.print(i);
+                        lcd.print(" ON");
+                        ui32_counter_time_turn_on_alarm = 0;
+                        ui32_status_alarm = true;
+                        turn_on_buzzer();
+                    } 
+                }
+                
+                
+                                        
             }       
         }
     }
